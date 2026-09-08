@@ -1,0 +1,58 @@
+ *{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+ font-family: roboto, sans-serif;
+
+}
+
+h2 {
+  color: black;
+  text-align: center;
+}
+
+/* ==========================================================
+   WRAPPER
+   Umschließt beide Container. Nimmt die volle Höhe/Breite
+   des Fensters ein.
+   ========================================================== */
+.wrapper {
+  display: flex;          /* Container nebeneinander anordnen */
+  width: 100%;
+  height: 100vh;           /* volle Bildschirmhöhe */
+}
+
+
+/* ==========================================================
+   CONTAINER (linke & rechte Hälfte)
+   Beide je 50% Breite, 100% Höhe.
+   ========================================================== */
+.container {
+  width: 50%;
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;  /* Unter-Container untereinander stapeln */
+}
+
+
+#container-links {
+  background: #bdd4e2;
+}
+
+#container-rechts {
+  background: #b1c3d0;
+}
+
+
+.sub-container {
+  flex: 1;                     /* teilt verfügbare Höhe gleichmäßig auf */
+}
