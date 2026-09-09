@@ -15,8 +15,12 @@ body {
 }
 
 h2 {
-  color: black;
+  margin: 0;
+  color: rgba(180, 208, 41, 0.837);
+    font-size: 65px;
+  font-weight: 800;
   text-align: center;
+    background: #5c809d;      /* eigene Hintergrundfarbe für die Überschrift */
 }
 
 /* ==========================================================
@@ -38,21 +42,97 @@ h2 {
 .container {
   width: 50%;
   height: 100%;
-  padding: 15px;
+
   display: flex;
   flex-direction: column;  /* Unter-Container untereinander stapeln */
 }
 
 
 #container-links {
-  background: #bdd4e2;
+  background: #a5a6c8;
+  
+    
 }
 
 #container-rechts {
-  background: #b1c3d0;
+  background: #e0cb83ad;
+    border-left: 4px solid #062035;
+  
 }
 
 
-.sub-container {
-  flex: 1;                     /* teilt verfügbare Höhe gleichmäßig auf */
+.sub-container1 {           
+         
+  flex: 1;        /* teilt verfügbare Höhe gleichmäßig auf */
+  display: flex;          /* Container nebeneinander anordnen */
+  flex-direction: row;  /* Unter-Container untereinander stapeln */
+ justify-content: center;  /* zentriert die Buttons vertikal */
+ align-items: center;   
+  gap: 20px;      /* Abstand zwischen den Buttons */
+
+
+}
+
+.sub-container2 {           
+  flex: 1;        /* teilt verfügbare Höhe gleichmäßig auf */
+  display: flex;          /* Container nebeneinander anordnen */
+  flex-direction: column;  /* Unter-Container untereinander stapeln */
+ justify-content: center;  /* zentriert die Buttons vertikal */
+ align-items: center;   
+  gap: 20px;      /* Abstand zwischen den Buttons */
+
+}
+
+
+
+.taster {
+  aspect-ratio: 1 / 1;      /* erzwingt: Breite = Höhe, also quadratisch */
+  width: 150px;              /* Ausgangsgröße, kannst du frei anpassen */
+  
+  display: flex;             /* zum Zentrieren des Inhalts */
+  align-items: center;       /* vertikal mittig */
+  justify-content: center;   /* horizontal mittig */
+  
+  border: 3px solid #141274e0;
+  border-radius: 20px;
+  background: #3e7ebe;
+color: #0a0a8ccd;
+  cursor: pointer;
+}
+
+.taster:hover {
+   filter: brightness(1.6);
+}
+
+.taster:active {
+  transform: translateY(2px);   /* kleiner "Klick"-Effekt beim Drücken */
+}
+
+
+.taster--ein {
+  background: #29cc46;
+   
+  font-size: 40px;
+  font-weight: 750;
+}
+
+.taster--aus {
+  background: #bb2121;
+ 
+  font-size: 40px;
+  font-weight: 750;
+}
+
+.taster--hoch {
+  background: #bdbdb8db;
+   
+  font-size: 26px;
+  font-weight: 750;
+}
+
+.taster--runter {
+  background: #bdbdb8db;
+    
+  font-size: 26px;
+  font-weight: 750;
 }
