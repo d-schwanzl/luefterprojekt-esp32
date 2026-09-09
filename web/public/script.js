@@ -1,35 +1,30 @@
-// Wartet, bis das gesamte HTML geladen ist
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // 1. Wir suchen das Matrix-Display im HTML
-    const display = document.querySelector(".matrix-display");
-    
-    // Startwert für den Zähler (wir fangen bei 0 an)
-    let aktuelleZahl = 0;
+document.addEventListener('DOMContentLoaded', () => {
+  const inputFeld = document.getElementById('zifferInput');
+  const anzeigenBtn = document.getElementById('btnAnzeigen');
+  const matrixDisplay = document.querySelector('.matrix-display');
 
-    // 2. Diese Funktion wechselt die Zahl auf dem Display
-    function zeigeNaechsteZahl() {
-        // Wir entfernen zuerst alle alten Zahlen-Klassen (n0 bis n9)
-        for (let i = 0; i <= 9; i++) {
-            display.classList.remove(`n${i}`);
-        }
+  function zeigeZiffer() {
+    const wert = parseInt(inputFeld.value, 10);
 
-        // Wir fügen die neue Klasse hinzu (z.B. "n0", "n1" etc.)
-        display.classList.add(`n${aktuelleZahl}`);
+    // Prüfen, ob eine gültige Zahl zwischen 0 und 9 eingegeben wurde
+    if (!isNaN(wert) && wert >= 0 && wert <= 9) {
+      // Entfernt alle alten Ziffern-Klassen (n0 bis n9)
+      for (let i = 0; i <= 9; i++) {
+        matrixDisplay.classList.remove(`n${i}`);
+      }
 
-        // Zähler um 1 erhöhen für den nächsten Schritt
-        aktuelleZahl++;
-
-        // Wenn wir über die 9 kommen (also bei 10 sind), fangen wir wieder bei 0 an
-        if (aktuelleZahl > 9) {
-            aktuelleZahl = 0;
-        }
+      // Fügt die neue Klasse hinzu (z. B. "n3")
+      matrixDisplay.classList.add(`n${wert}`);
     }
+  }
 
-    // 3. Den Taktgeber (Timer) starten
-    // 1000 Millisekunden = genau 1 Sekunde
-    setInterval(zeigeNaechsteZahl, 1000);
+  // Ausführen bei Klick auf den Button "Anzeigen"
+  if (anzeigenBtn) {
+    anzeigenBtn.addEventListener('click', zeigeZiffer);
+  }
 
-    // Einmal direkt beim Start ausführen, damit nicht 1 Sekunde gewartet werden muss
-    zeigeNaechsteZahl();
+  // Ausführen direkt beim Ändern des Werts im Eingabefeld
+  if (inputFeld) {
+    inputFeld.addEventListener('input', zeigeZiffer);
+  }
 });
