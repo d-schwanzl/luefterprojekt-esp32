@@ -12,95 +12,132 @@
   <!-- Wrapper: umschließt alles, 100% Breite und Höhe -->
   <div class="wrapper">
 
-    <!-- Container 1: linke Hälfte, 50% Breite, 100% Höhe -->
+    <!-- Container links: linke Hälfte, 50% Breite, 100% Höhe -->
     <div class="container" id="container-links">
       <h2>Bedienfeld</h2>
 
-      <!-- Unter-Container in Container 1 -->
+      <!-- Container links: Container 1 -->
       <div class="sub-container1">
       <button class="taster taster--ein">Ein</button>
       <button class="taster taster--aus">AUS</button>
       </div>
-     <!-- Unter-Container in Container 1 -->
+      <!-- Container links: Container 2 -->
       <div class="sub-container2">
       <button class="taster taster--hoch">HOCH</button>
       <button class="taster taster--runter">RUNTER</button>
      </div>
    </div>
 
-
-
-
-
-
+<!-- ------------------------------------------------------------------------->
+<!-- ------------------------------------------------------------------------->
+       <!-- Container rechts: rechte Hälfte, 50% Breite, 100% Höhe -->
     <div class="container" id="container-rechts">
     <h2>Anzeigefeld</h2>
-      <!-- Unter-Container in Container 1 -->
+     
       <div class="sub-container2">
 
 
 
 
- <!-- Hauptscontainer für den Bargraph -->
-    <div class="led-panel">
-        
-        <!-- Überschrift über den LEDs -->
-        <h1>Lüfterstufen</h1>
-
-        <!-- Container für die 4 LEDs nebeneinander -->
-        <div class="led-container">
-            
-            <!-- LED 1: PWR -->
-            <div class="led-wrapper">
-                <div class="led" id="led1"></div>
-                <span class="led-label">1</span>
-            </div>
-
-            <!-- LED 2: WARN -->
-            <div class="led-wrapper">
-                <div class="led" id="led2"></div>
-                <span class="led-label">2</span>
-            </div>
-
-            <!-- LED 3: DATA -->
-            <div class="led-wrapper">
-                <div class="led" id="led3"></div>
-                <span class="led-label">3</span>
-            </div>
-
-            <!-- LED 4: STAT -->
-            <div class="led-wrapper">
-                <div class="led" id="led4"></div>
-                <span class="led-label">4</span>
-            </div>
-
-        </div>
-
-    </div>
 
 
 
 
 
-<!-- 7. Segmentanzeige bzw. Matrix LED. -->
 
+<!-- LED Statusanzeige -->
+<!-- Container für alle drei LED-Pakete -->
+<div class="led-group1">
+<h1>Lüfter Statusanzeige</h1>
+  <!-- Paket 1 -->
+  <div class="led-items1">
+    <div class="led" id="symbol-led1"></div>
+    <span class="led-label1">AUS</span>
+  </div>
 
-<div class="matrix-display n5">
-    <!-- Reihe 1 bis 4 -->
-    <div class="pixel" id="p1"></div><div class="pixel" id="p2"></div><div class="pixel" id="p3"></div><div class="pixel" id="p4"></div>
-    <div class="pixel" id="p5"></div><div class="pixel" id="p6"></div><div class="pixel" id="p7"></div><div class="pixel" id="p8"></div>
-    <div class="pixel" id="p9"></div><div class="pixel" id="p10"></div><div class="pixel" id="p11"></div><div class="pixel" id="p12"></div>
-    <div class="pixel" id="p13"></div><div class="pixel" id="p14"></div><div class="pixel" id="p15"></div><div class="pixel" id="p16"></div>
-    <!-- Reihe 5 bis 9 -->
-    <div class="pixel" id="p17"></div><div class="pixel" id="p18"></div><div class="pixel" id="p19"></div><div class="pixel" id="p20"></div>
-    <div class="pixel" id="p21"></div><div class="pixel" id="p22"></div><div class="pixel" id="p23"></div><div class="pixel" id="p24"></div>
-    <div class="pixel" id="p25"></div><div class="pixel" id="p26"></div><div class="pixel" id="p27"></div><div class="pixel" id="p28"></div>
-    <div class="pixel" id="p29"></div><div class="pixel" id="p30"></div><div class="pixel" id="p31"></div><div class="pixel" id="p32"></div>
-    <div class="pixel" id="p33"></div><div class="pixel" id="p34"></div><div class="pixel" id="p35"></div><div class="pixel" id="p36"></div>
+  <!-- Paket 2 -->
+  <div class="led-items1">
+    <div class="led" id="symbol-led2"></div>
+    <span class="led-label1">EIN</span>
+  </div>
+
+  <!-- Paket 3 -->
+  <div class="led-items1">
+    <div class="led" id="symbol-led3"></div>
+    <span class="led-label1">STÖRUNG</span>
+  </div> 
   </div>
 
 
+
+
+
+
+
+
+
+
+
+<!-- Container Bargraph und Container Matrixanzeige zusammenfassen -->
+<div class="containerSum">
+
+ <!--2. Bargraph :Lüfterstufen-->
+    <div class="led-group2">
+        
+        <h1>Lüfterstufen</h1>
+        <!-- Container für die 4 LEDs nebeneinander -->
+        <div class="led-container2">         
+            <!-- LED 1: Stufe 1 -->
+            <div class="led-wrapper">
+                <div class="led" id="led1"></div>
+                <span class="led-label2">1</span>
+            </div>
+
+            <!-- LED 2: Stufe 2 -->
+            <div class="led-wrapper">
+                <div class="led" id="led2"></div>
+                <span class="led-label2">2</span>
+            </div>
+
+            <!-- LED 3: Stufe 3 -->
+            <div class="led-wrapper">
+                <div class="led" id="led3"></div>
+                <span class="led-label2">3</span>
+            </div>
+
+            <!-- LED 4: Stufe 4 -->
+            <div class="led-wrapper">
+                <div class="led" id="led4"></div>
+                <span class="led-label2">4</span>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+<!-- 3. Segmentanzeige bzw. Matrix LED. -->
+<div class="matrix-panel">
+    <h1>Matrixanzeige</h1>
+<div class="matrix-display n7">
+    <!-- Reihe 1 bis 4 -->
+    <div id="p1"></div><div id="p2"></div><div id="p3"></div><div id="p4"></div>
+    <div id="p5"></div><div id="p6"></div><div id="p7"></div><div id="p8"></div>
+    <div id="p9"></div><div id="p10"></div><div id="p11"></div><div id="p12"></div>
+    <div id="p13"></div><div id="p14"></div><div id="p15"></div><div id="p16"></div>
+    <!-- Reihe 5 bis 9 -->
+    <div id="p17"></div><div id="p18"></div><div id="p19"></div><div id="p20"></div>
+    <div id="p21"></div><div id="p22"></div><div id="p23"></div><div id="p24"></div>
+    <div id="p25"></div><div id="p26"></div><div id="p27"></div><div id="p28"></div>
+    <div id="p29"></div><div id="p30"></div><div id="p31"></div><div id="p32"></div>
+    <div id="p33"></div><div id="p34"></div><div id="p35"></div><div id="p36"></div>
+</div>
+</div>
+
+</div>
+
+ </div>
  
 
 </body>
