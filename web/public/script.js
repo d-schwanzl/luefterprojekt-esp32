@@ -79,3 +79,4 @@ function updateDisplay(status) {
             break;
     }
 }
+
