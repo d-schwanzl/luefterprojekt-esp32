@@ -85,6 +85,10 @@ h2 {
 
 
 
+
+
+/*Elemente Von Bedienfeld */
+
 .taster {
   aspect-ratio: 1 / 1;      /* erzwingt: Breite = Höhe, also quadratisch */
   width: 150px;              /* Ausgangsgröße, kannst du frei anpassen */
@@ -137,7 +141,104 @@ color: #0a0a8ccd;
   font-weight: 750;
 }
 
-/* ==========================================================
+
+
+
+
+
+
+
+
+
+
+/* Elemente von Anzeigefeld */
+
+
+
+
+
+ /*==========================================================
+  Bargraph 4 LEDs
+   ========================================================== */
+
+/* Container-Verpackung (Kasten für alles) */
+.led-panel {
+    display: flex;
+    flex-direction: column;   /* Richtet Überschrift und LED-Reihe untereinander aus */
+    align-items: center;      /* Zentriert den Inhalt waagerecht */
+    gap: 15px;               /* Abstand zwischen Überschrift und LEDs */
+    background-color: #000000;
+    border-radius: 8px;
+    border: 3px solid #5aeef1d7;
+    padding: 20px;
+    border-radius: 8px;
+    width: fit-content;       /* Passt die Kastenbreite automatisch an den Inhalt an */
+    margin: 20px auto;        /* Zentriert den Kasten auf der Webseite */
+}
+
+/* Styling der Überschrift */
+.led-panel h1 {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f7f9fa;
+    text-align: center;
+}
+/* Styling der Überschrift */
+.led-panel span {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 25px;
+    color: #efeff9cd;
+    text-align: center;
+}
+
+
+/* Reihe für die 4 LEDs (nebeneinander) */
+.led-container {
+    display: flex;
+    flex-direction: row;      /* Formiert die LEDs nebeneinander */
+    gap: 25px;               /* Gleichmäßiger Abstand zwischen den 4 LEDs */
+}
+
+/* Einzelne LED inkl. Beschriftung */
+.led-wrapper {
+    display: flex;
+    flex-direction: column;   /* Stapelt LED und Text untereinander */
+    align-items: center;      /* Zentriert die LED über dem Text */
+    gap: 8px;
+}
+
+/* Beschriftung unter der LED */
+.led-label {
+    color: #444;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+/* Grundzustand: Dunkelrot/Grau (Aus) */
+.led {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #522e2e; /* Aus-Zustand */
+    border: 1px solid #1a1a1a;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Aktivierter Zustand: Leuchtet Grün */
+.led.active {
+    background-color: #68f6a1; /* LED-Grün */
+    box-shadow: 0 0 8px #00ff66, 0 0 14px rgba(0, 255, 102, 0.5);
+}
+
+
+
+
+ /*==========================================================
    MATRIX ANZEIGE (4x9 Raster)
    ========================================================== */
 .matrix-display {
@@ -171,3 +272,9 @@ color: #0a0a8ccd;
 {
     background-color: #0a54ff;
 }
+
+
+
+
+
+

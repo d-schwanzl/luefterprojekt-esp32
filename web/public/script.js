@@ -1,30 +1,81 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const inputFeld = document.getElementById('zifferInput');
-  const anzeigenBtn = document.getElementById('btnAnzeigen');
-  const matrixDisplay = document.querySelector('.matrix-display');
-
-  function zeigeZiffer() {
-    const wert = parseInt(inputFeld.value, 10);
-
-    // Prüfen, ob eine gültige Zahl zwischen 0 und 9 eingegeben wurde
-    if (!isNaN(wert) && wert >= 0 && wert <= 9) {
-      // Entfernt alle alten Ziffern-Klassen (n0 bis n9)
-      for (let i = 0; i <= 9; i++) {
-        matrixDisplay.classList.remove(`n${i}`);
-      }
-
-      // Fügt die neue Klasse hinzu (z. B. "n3")
-      matrixDisplay.classList.add(`n${wert}`);
+/**
+ * Einzelne LED ansteuern
+ * @param {string} ledId - ID der LED im HTML (z. B. 'led1', 'led2')
+ * @param {boolean} status - true = an (grün), false = aus (grau)
+ */
+function setLed(ledId, status) {
+    const led = document.getElementById(ledId);
+    if (!led) {
+        console.warn(`LED mit der ID "${ledId}" wurde im HTML nicht gefunden!`);
+        return;
     }
-  }
 
-  // Ausführen bei Klick auf den Button "Anzeigen"
-  if (anzeigenBtn) {
-    anzeigenBtn.addEventListener('click', zeigeZiffer);
-  }
+    if (status) {
+        led.classList.add('active');
+    } else {
+        led.classList.remove('active');
+    }
+}
 
-  // Ausführen direkt beim Ändern des Werts im Eingabefeld
-  if (inputFeld) {
-    inputFeld.addEventListener('input', zeigeZiffer);
-  }
+
+// Reagiert sofort, wenn du auf der Tastatur eine Zahl drückst
+document.addEventListener('keydown', (event) => {
+    // Prüft, ob eine Zahl von 0 bis 4 gedrückt wurde
+    if (['0', '1', '2', '3', '4'].includes(event.key)) {
+        const zahl = parseInt(event.key, 10);
+        console.log(`Taste ${zahl} gedrückt! Schalte LEDs...`);
+        
+        // Ruft dein switch-case auf
+        updateDisplay(zahl);
+    }
 });
+
+/**
+ * Gesamtstatus der Anzeige setzen
+ * @param {number} status - Zahl von 0 bis 4
+ */
+function updateDisplay(status) {
+    // Zahl/Input sicherstellen
+    const level = Number(status);
+
+
+    switch (level) {
+        case 0:
+            setLed('led1', false);
+            setLed('led2', false);
+            setLed('led3', false);
+            setLed('led4', false);
+            break;
+        case 1:
+            setLed('led1', true);   // Schaltet LED 1 AN (Grün)
+            setLed('led2', false);  // Schaltet LED 2 AUS
+            setLed('led3', false);  // Schaltet LED 3 AUS
+            setLed('led4', false);  // Schaltet LED 4 AUS
+            break;
+        case 2:
+            setLed('led1', true);
+            setLed('led2', true);
+            setLed('led3', false);
+            setLed('led4', false);
+            break;
+        case 3:
+            setLed('led1', true);
+            setLed('led2', true);
+            setLed('led3', true);
+            setLed('led4', false);
+            break;
+        case 4:
+            setLed('led1', true);
+            setLed('led2', true);
+            setLed('led3', true);
+            setLed('led4', true);
+            break;
+        default:
+            console.warn("Ungültige Stufe! Verwende eine Zahl von 0 bis 4.");
+            setLed('led1', false);
+            setLed('led2', false);
+            setLed('led3', false);
+            setLed('led4', false);
+            break;
+    }
+}

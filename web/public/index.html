@@ -29,18 +29,62 @@
    </div>
 
 
+
+
+
+
     <div class="container" id="container-rechts">
     <h2>Anzeigefeld</h2>
       <!-- Unter-Container in Container 1 -->
-      <div class="sub-container1">
-      <button class="taster taster--ein">Ein</button>
-      <button class="taster taster--aus">AUS</button>
-      </div>
-     <!-- Unter-Container in Container 1 -->
       <div class="sub-container2">
 
 
-<!-- Dieser Block kommt in den rechten sub-container2 -->
+
+
+ <!-- Hauptscontainer für den Bargraph -->
+    <div class="led-panel">
+        
+        <!-- Überschrift über den LEDs -->
+        <h1>Lüfterstufen</h1>
+
+        <!-- Container für die 4 LEDs nebeneinander -->
+        <div class="led-container">
+            
+            <!-- LED 1: PWR -->
+            <div class="led-wrapper">
+                <div class="led" id="led1"></div>
+                <span class="led-label">1</span>
+            </div>
+
+            <!-- LED 2: WARN -->
+            <div class="led-wrapper">
+                <div class="led" id="led2"></div>
+                <span class="led-label">2</span>
+            </div>
+
+            <!-- LED 3: DATA -->
+            <div class="led-wrapper">
+                <div class="led" id="led3"></div>
+                <span class="led-label">3</span>
+            </div>
+
+            <!-- LED 4: STAT -->
+            <div class="led-wrapper">
+                <div class="led" id="led4"></div>
+                <span class="led-label">4</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+<!-- 7. Segmentanzeige bzw. Matrix LED. -->
+
+
 <div class="matrix-display n5">
     <!-- Reihe 1 bis 4 -->
     <div class="pixel" id="p1"></div><div class="pixel" id="p2"></div><div class="pixel" id="p3"></div><div class="pixel" id="p4"></div>
@@ -55,30 +99,9 @@
     <div class="pixel" id="p33"></div><div class="pixel" id="p34"></div><div class="pixel" id="p35"></div><div class="pixel" id="p36"></div>
   </div>
 
-<!-- Test-Eingabe zum manuellen Prüfen der Ziffern -->
-<div class="test-controls" style="margin-bottom: 15px;">
-  <label for="zifferInput" style="color: #ccc; font-family: sans-serif; font-size: 14px;">Ziffer testen (0-9): </label>
-  <input type="number" id="zifferInput" min="0" max="9" placeholder="0" style="width: 50px; padding: 4px; font-size: 16px; text-align: center;">
-  <button id="btnAnzeigen" style="padding: 4px 10px; font-size: 14px; cursor: pointer;">Anzeigen</button>
-</div>
 
-
-
-
-
-
-
-      <button class="taster taster--runter">RUNTER</button>
-     </div>
-   </div>
-  
-
-   
-
-    <!-- Container 2: rechte Hälfte, 50% Breite, 100% Höhe -->
-   
-
-  </div>
+    </div>
+ 
 
 </body>
 </html>
