@@ -1,3 +1,6 @@
+/* ==========================================================
+   BASIS EINSTELLUNGEN
+   ========================================================== */
 *{
   box-sizing: border-box;
   margin: 0;
@@ -17,14 +20,15 @@ h2 {
   margin: 0;
   width: 100%;                  /* Zwingt die Überschrift auf die volle Breite des Halb-Containers */
   color: rgb(0, 0, 0);
-  font-size: 65px;
-  letter-spacing: 2px;          /* Abstand zwischen den Buchstaben */
+  /* Dynamische Schriftgröße: Zwischen 32px (2rem) und 65px (4.0625rem) je nach Bildschirmbreite */
+  font-size: clamp(2rem, 5vw, 4.0625rem);
+  letter-spacing: 0.125rem;          /* Abstand zwischen den Buchstaben */
   text-transform: uppercase;    /* Wandelt Text in GROSSBUCHSTABEN um */
   font-weight: 800;
   text-align: center;
-  padding: 10px 0;              /* 💡 TIPP: Gibt dem Text im Balken etwas Luft nach oben und unten */
+  padding: 0.625rem 0;              /* Gibt dem Text im Balken etwas Luft nach oben und unten */
   background: #d7f38a;        /* Deine eigene Hintergrundfarbe für die Überschrift */
-  border-bottom: 2px solid #062035; /* Optional: Unterstreicht die Überschrift mit einer Linie */
+  border-bottom: 0.125rem solid #062035; /* Optional: Unterstreicht die Überschrift mit einer Linie */
 }
 
 /* ==========================================================
@@ -34,11 +38,11 @@ h2 {
    ========================================================== */
 .wrapper {
   display: flex;          /* Container nebeneinander anordnen */
-   flex-shrink: 1; /* Erlaubt dem Kasten, kleiner zu werden, wenn der Platz knapp wird */
-    min-height: 0;  /* Verhindert, dass der Kasten stur auf seiner Mindesthöhe beharrt */
+  flex-shrink: 1;         /* Erlaubt dem Kasten, kleiner zu werden, wenn der Platz knapp wird */
+  min-height: 0;          /* Verhindert, dass der Kasten stur auf seiner Mindesthöhe beharrt */
   width: 100%;
-  height: 100vh;           /* volle Bildschirmhöhe */
-  overflow: hidden;        /* 💡 Verhindert, dass Scrollbalken entstehen */
+  height: 100vh;          /* volle Bildschirmhöhe */
+  overflow: hidden;        /* Verhindert, dass Scrollbalken entstehen */
 }
 
 /* ==========================================================
@@ -59,10 +63,12 @@ h2 {
 
 #container-rechts {
   background: transparent; 
-  border-left: 4px solid #062035;
+  border-left: 0.25rem solid #062035;
 }
 
-
+/* ==========================================================
+   SUB-CONTAINER (Inhaltsbereiche)
+   ========================================================== */
 /* Anordnung gestapelt */
 .sub-container1 {           
   flex: 1;        
@@ -70,9 +76,10 @@ h2 {
   flex-direction: row;  
   justify-content: center;  
   align-items: center;   
-  gap: 50px;      
-    /* 💡 Neu hinzugefügt */
+  /* Flexibler Abstand: Passt sich der Bildschirmbreite an, zwischen 20px und 50px */
+  gap: clamp(1.25rem, 4vw, 3.125rem);      
 }
+
 /* Anordnung nebeneinander (Bedienfeld unten) */
 .sub-container2 {           
   flex: 1;   
@@ -80,26 +87,41 @@ h2 {
   flex-direction: column;  
   justify-content: center;  
   align-items: center;   
-  gap: 25px; 
-  margin-bottom: 40px;  
-
+  /* Flexibler Abstand: Passt sich der Bildschirmhöhe an, zwischen 15px und 25px */
+  gap: clamp(0.9375rem, 3vh, 1.5625rem); 
+  margin-bottom: 2.5rem;  
 }
 
+/* Anordnung nebeneinander (Anzeigefeld rechts) */
+.sub-container3 {  
+  display: flex;
+  flex-direction: row;     
+  justify-content: center;  
+  align-items: flex-start;  /* Verhindert, dass das linke Matrix-Panel gestreckt wird! */
+  /* Flexibler Abstand: Passt sich der Bildschirmbreite an */
+  gap: clamp(1.25rem, 5vw, 3.125rem);               
+  width: 100%;
+  height: 100%;           
+  padding: 2.5rem 0;         
+  background: #fff1895a;   
+}
 
-/*Elemente Von Bedienfeld */
-
+/* ==========================================================
+   ELEMENTE VON BEDIENFELD (Taster)
+   ========================================================== */
 .taster {
   aspect-ratio: 1 / 1;      /* erzwingt: Breite = Höhe, also quadratisch */
-  width: 150px;              /* Ausgangsgröße, kannst du frei anpassen */
+  /* Flexible Breite: Passt sich dem Bildschirm an, schrumpft auf kleinen Monitoren mit */
+  width: clamp(5.625rem, 10vw, 9.375rem);              
   
   display: flex;             /* zum Zentrieren des Inhalts */
   align-items: center;       /* vertikal mittig */
   justify-content: center;   /* horizontal mittig */
   
-  border: 3px solid #141274e0;
-  border-radius: 20px;
+  border: 0.1875rem solid #141274e0;
+  border-radius: 1.25rem;
   background: #3e7ebe;
-color: #0a0a8ccd;
+  color: #0a0a8ccd;
   cursor: pointer;
 }
 
@@ -108,307 +130,225 @@ color: #0a0a8ccd;
 }
 
 .taster:active {
-  transform: translateY(2px);   /* kleiner "Klick"-Effekt beim Drücken */
+  transform: translateY(0.125rem);   /* kleiner "Klick"-Effekt beim Drücken */
 }
-
 
 .taster--ein {
   background: #29cc46;
-   
-  font-size: 40px;
+  font-size: clamp(1.5rem, 3vw, 2.5rem); /* Schrift schrumpft auf kleinen Bildschirmen */
   font-weight: 750;
 }
 
 .taster--aus {
   background: #bb2121;
- 
-  font-size: 40px;
+  font-size: clamp(1.5rem, 3vw, 2.5rem); /* Schrift schrumpft auf kleinen Bildschirmen */
   font-weight: 750;
 }
 
 .taster--hoch {
   background: #bdbdb8db;
-   
-  font-size: 26px;
+  font-size: clamp(1.125rem, 2vw, 1.625rem);
   font-weight: 750;
 }
 
 .taster--runter {
   background: #bdbdb8db;
-    
-  font-size: 26px;
+  font-size: clamp(1.125rem, 2vw, 1.625rem);
   font-weight: 750;
 }
 
-
-
-
-
-
-
-
-
-
-
-/* Elemente von Anzeigefeld */
-
-
-
-
-
-/* Anordnung nebeneinander (Anzeigefeld rechts) */
-.sub-container3 {  
-  display: flex;
-  flex-direction: row;     
-  justify-content: center;  
-  
-  align-items: flex-start;  /* 💡 WIEDER GEÄNDERT: Verhindert, dass das linke Matrix-Panel gestreckt wird! */
-  
-  gap: clamp(20px, 5vw, 50px);               
-  width: 100%;
-  height: 100%;           
-  padding: 40px 0;         
-  background: #fff1895a;   
-}
-
-
-
- /*==========================================================
-  LED Statusanzeige
+/* ==========================================================
+   LED STATUSANZEIGE
    ========================================================== */
-/* Haupt-Container: Stapelt die 3 Pakete untereinander */
 .led-group1 {
     display: flex;
-    flex-direction: column; /* Untereinander anordnen */
-    gap: 18px;              /* Vertikaler Abstand zwischen den Paketen */
-    background-color: #000000; /* Passender dunkler Hintergrund */
- border-radius: 8px;
-  border: 3px solid #5aeef1d7;
-padding : 20px;
-
-
+    flex-direction: column; 
+    gap: clamp(0.625rem, 2vh, 1.125rem); /* Flexibler vertikaler Abstand */
+    background-color: #000000; 
+    border-radius: 0.5rem;
+    border: 0.1875rem solid #5aeef1d7;
+    padding: clamp(0.75rem, 2vh, 1.25rem); /* Flexibles Padding */
 }
 
-
 .led-group1 h1 {
-        margin: 0;
+    margin: 0;
     font-family: sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem); /* Schriftgröße passt sich an */
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
 }
 
-/* Einzelnes Paket: LED links, Beschreibungsfeld rechts */
 .led-items1 {
     display: flex;
-    align-items: center;    /* Vertikal auf gleicher Höhe zentrieren */
-    gap: 12px;              /* Abstand zwischen LED und Textfeld */
+    align-items: center;    
+    gap: 0.75rem;              
 }
 
-/* Symbolische LED (Standard: Aus / Grau) */
 .led-items1 .led {
-     width: 45px;
-    height: 45px;
+    /* LEDs werden auf kleinen Bildschirmen etwas kleiner */
+    width: clamp(2rem, 5vw, 2.8125rem);
+    height: clamp(2rem, 5vw, 2.8125rem);
     border-radius: 50%;
-background-color: #586478; /* Aus-Zustand */
-    border: 1px solid #1a1a1a;
+    background-color: #586478; 
+    border: 0.0625rem solid #1a1a1a;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
-/* Beschreibungsfeld rechts */
+
 .led-label1 {
-       margin: 0;
+    margin: 0;
     font-family: sans-serif;
-    font-size: 25px;
+    font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
     color: #efeff9cd;
     text-align: center;
 }
 
-/* Zustand: LED leuchtet Grün (wenn aktiv) */
 .led-items1 .led.active {
-   background-color: #68f6a1; /* LED-Grün */
-    box-shadow: 0 0 8px #00ff66, 0 0 14px rgba(0, 255, 102, 0.5);
+   background-color: #68f6a1; 
+   box-shadow: 0 0 0.5rem #00ff66, 0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
-
-
- /*==========================================================
- Container Summen
- ========================================================== */
+/* ==========================================================
+   CONTAINER SUMMEN
+   ========================================================== */
 .containerSum {
      display: flex;
-    flex-direction: column;
-    
-    justify-content: space-between; /* 💡 NEU: Verteilt die 3 Kästen gleichmäßig von oben nach unten */
-    height: 100%;                  /* 💡 NEU: Zwingt die Spalte, die volle verfügbare Höhe zu nutzen */
-    
-    align-items: center;
-  
-   
-
-
+     flex-direction: column;
+     justify-content: space-between; 
+     height: 100%;                  
+     align-items: center;
+     /* Falls der Bildschirm in der Höhe zu klein wird, rücken die Boxen näher zusammen */
+     gap: clamp(0.625rem, 2vh, 3.125rem); 
 }
 
-
- /*==========================================================
- Bargraph 4 LEDs
- ========================================================== */
-
-/* Container-Verpackung (Kasten für alles) */
+/* ==========================================================
+   BARGRAPH 4 LEDs
+   ========================================================== */
 .led-group2 {
     display: flex;
-    flex-direction: column;   /* Richtet Überschrift und LED-Reihe untereinander aus */
-    align-items: center;      /* Zentriert den Inhalt waagerecht */
-    gap: 15px;               /* Abstand zwischen Überschrift und LEDs */
+    flex-direction: column;   
+    align-items: center;      
+    gap: clamp(0.5rem, 1.5vh, 0.9375rem);               
     background-color: #000000;
-    border-radius: 8px;
-    border: 3px solid #5aeef1d7;
-    padding: 20px;
-    border-radius: 8px;
-    width: fit-content;       /* Passt die Kastenbreite automatisch an den Inhalt an */
-
+    border-radius: 0.5rem;
+    border: 0.1875rem solid #5aeef1d7;
+    padding: clamp(0.75rem, 2vh, 1.25rem);
+    width: fit-content;       
 }
 
-
-/* Reihe für die 4 LEDs (nebeneinander) */
 .led-container2 {
     display: flex;
-    flex-direction: row;      /* Formiert die LEDs nebeneinander */
-    gap: 18px;               /* Gleichmäßiger Abstand zwischen den 4 LEDs */
+    flex-direction: row;      
+    gap: clamp(0.5rem, 2vw, 1.125rem);               
 }
 
-
-/* Styling der Überschrift */
 .led-group2 h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
 }
-/* Styling der Überschrift */
+
 .led-group2 span {
     margin: 0;
     font-family: sans-serif;
-    font-size: 25px;
+    font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
     color: #efeff9cd;
     text-align: center;
 }
 
-
-/* Einzelne LED inkl. Beschriftung */
 .led-wrapper {
     display: flex;
-    flex-direction: column;   /* Stapelt LED und Text untereinander */
-    align-items: center;      /* Zentriert die LED über dem Text */
-    gap: 8px;
+    flex-direction: column;   
+    align-items: center;      
+    gap: 0.5rem;
 }
 
-/* Beschriftung unter der LED */
 .led-label {
     color: #444;
     font-family: monospace;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.0313rem;
 }
 
-/* Grundzustand: Dunkelrot/Grau (Aus) */
 .led {
-    width: 45px;
-    height: 45px;
+    width: clamp(2rem, 5vw, 2.8125rem);
+    height: clamp(2rem, 5vw, 2.8125rem);
     border-radius: 50%;
-    background-color: #586478; /* Aus-Zustand */
-    border: 1px solid #1a1a1a;
+    background-color: #586478; 
+    border: 0.0625rem solid #1a1a1a;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Aktivierter Zustand: Leuchtet Grün */
 .led.active {
-    background-color: #68f6a1; /* LED-Grün */
-    box-shadow: 0 0 8px #00ff66, 0 0 14px rgba(0, 255, 102, 0.5);
+    background-color: #68f6a1; 
+    box-shadow: 0 0 0.5rem #00ff66, 0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
-
-
-
- /*==========================================================
+/* ==========================================================
    MATRIX ANZEIGE (4x9 Raster)
    ========================================================== */
 .matrix-panel {
     display: flex;
-    flex-direction: column;   /* Richtet Überschrift und Matrix untereinander aus */
-    align-items: center;      /* Zentriert den Inhalt waagerecht */
-    gap: 15px;               /* Abstand zwischen Überschrift und Matrix */
+    flex-direction: column;   
+    align-items: center;      
+    gap: clamp(0.5rem, 1.5vh, 0.9375rem);               
     background-color: #000000;
-    border-radius: 8px;
-    border: 3px solid #5aeef1d7;
-    padding: 20px;
-    border-radius: 8px;
-    width: fit-content;       /* Passt die Kastenbreite automatisch an den Inhalt an */
-
+    border-radius: 0.5rem;
+    border: 0.1875rem solid #5aeef1d7;
+    padding: clamp(0.75rem, 2vh, 1.25rem);
+    width: fit-content;       
 }
 
 .matrix-panel h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
 }
 
-
-
 .matrix-display {
     display: grid;
-    grid-template-columns: repeat(4, 10px); /* 4 Spalten a 16px */
-    grid-template-rows: repeat(9, 8px);    /* 9 Zeilen a 16px */
-    gap: 1px;
-    padding: 16px;
+    /* Damit die Matrix auf kleinen Bildschirmen nicht bricht, nutzen wir hier mitschrumpfende rem-Werte */
+    grid-template-columns: repeat(4, clamp(0.4rem, 1vw, 0.625rem)); 
+    grid-template-rows: repeat(9, clamp(0.35rem, 0.9vh, 0.5rem));    
+    gap: 0.0625rem;
+    padding: clamp(0.5rem, 1.5vh, 1rem);
     background-color: #000000;
-    border-radius: 8px;
-    border: 3px solid #1100ffd7;
+    border-radius: 0.5rem;
     width: fit-content;
-    /* 1. Kanten-Highlight & Vertiefungs-Schatten */
-    border: 2px solid #1f2937; /* Realer Rahmen um die Anzeige */
-    box-shadow:  0px 8px 12px rgb(0, 187, 255);  /* Tiefer Inset-Schatten für Vertiefung */
-
+    border: 0.125rem solid #1f2937; 
+    box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);  
 }
 
-
-
 .pixel {
-background-color: #000000; /* Dunkles Cyan-Schwarz */
-
+    background-color: #000000; 
     transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* AKTIVE PIXEL: Extrem leuchtendes Neon-Blau */
 .pixel.active {
-    /* 1. Der Kern ist extrem hell (fast weiß-blau für echten LED-Plasma-Look) */
     background-color: #72f0ff; 
-    
-    /* 2. Dreifacher Box-Shadow erzeugt intensive Strahlkraft */
     box-shadow: 
-        0 0 3px #00d8ff,                   /* Harter, hellblauer Innen-Glow */
-        0 0 8px #0088ff,                   /* Mittlerer blauer Strahlbereich */
-        0 0 18px rgba(0, 136, 255, 0.9),   /* Breiter Neon-Glow nach außen */
-        inset 0 0 2px #ffffff;            /* Weißer Hotspot im Zentrum des Pixels */
-        
+        0 0 0.1875rem #00d8ff,                   
+        0 0 0.5rem #0088ff,                   
+        0 0 1.125rem rgba(0, 136, 255, 0.9),   
+        inset 0 0 0.125rem #ffffff;            
     border-color: #a6f5ff;
 }
 
-/* Alle einzelnen Pixel: Inaktiver Ruhezustand (Schwarz/Sehr dunkel) */
 .matrix-display > div {
     background-color: #000000; 
-    border-radius: 2px;
-    border: 1px solid #061024;
+    border-radius: 0.125rem;
+    border: 0.0625rem solid #061024;
     transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* --- AKTIVE PIXEL (Ziffern 0 bis 9 mit Neon-Glow auf der 4x9 Matrix) --- */
+/* --- AKTIVE PIXEL MATRIX-LOGIK --- */
 .n0 #p1, .n0 #p2, .n0 #p3, .n0 #p4, .n0 #p5, .n0 #p8, .n0 #p9, .n0 #p12, .n0 #p13, .n0 #p16, .n0 #p17, .n0 #p20, .n0 #p21, .n0 #p24, .n0 #p25, .n0 #p28, .n0 #p29, .n0 #p32, .n0 #p33, .n0 #p34, .n0 #p35, .n0 #p36,
 .n1 #p4, .n1 #p8, .n1 #p12, .n1 #p16, .n1 #p20, .n1 #p24, .n1 #p28, .n1 #p32, .n1 #p36,
 .n2 #p1, .n2 #p2, .n2 #p3, .n2 #p4, .n2 #p8, .n2 #p12, .n2 #p16, .n2 #p17, .n2 #p18, .n2 #p19, .n2 #p20, .n2 #p21, .n2 #p25, .n2 #p29, .n2 #p33, .n2 #p34, .n2 #p35, .n2 #p36,
@@ -419,59 +359,63 @@ background-color: #000000; /* Dunkles Cyan-Schwarz */
 .n7 #p1, .n7 #p2, .n7 #p3, .n7 #p4, .n7 #p8, .n7 #p12, .n7 #p16, .n7 #p20, .n7 #p24, .n7 #p28, .n7 #p32, .n7 #p36,
 .n8 #p1, .n8 #p2, .n8 #p3, .n8 #p4, .n8 #p5, .n8 #p8, .n8 #p9, .n8 #p12, .n8 #p13, .n8 #p16, .n8 #p17, .n8 #p18, .n8 #p19, .n8 #p20, .n8 #p21, .n8 #p24, .n8 #p25, .n8 #p28, .n8 #p29, .n8 #p32, .n8 #p33, .n8 #p34, .n8 #p35, .n8 #p36,
 .n9 #p1, .n9 #p2, .n9 #p3, .n9 #p4, .n9 #p5, .n9 #p8, .n9 #p9, .n9 #p12, .n9 #p13, .n9 #p16, .n9 #p17, .n9 #p18, .n9 #p19, .n9 #p20, .n9 #p24, .n9 #p28, .n9 #p32, .n9 #p33, .n9 #p34, .n9 #p35, .n9 #p36 {
-    /* Helles Neon-Blau mit Plasma-Effekt für alle aktiv geschalteten Pixel */
     background-color: #72f0ff; 
     border-color: #a6f5ff;
     box-shadow: 
-        0 0 3px #00d8ff,                   /* Harter, hellblauer Innen-Glow */
-        0 0 8px #0088ff,                   /* Mittlerer blauer Strahlbereich */
-        0 0 18px rgba(0, 136, 255, 0.9),   /* Breiter Neon-Glow nach außen */
-        inset 0 0 2px #ffffff;            /* Weißer Hotspot im Zentrum */
+        0 0 0.1875rem #00d8ff,                   
+        0 0 0.5rem #0088ff,                   
+        0 0 1.125rem rgba(0, 136, 255, 0.9),   
+        inset 0 0 0.125rem #ffffff;            
 }
 
-
-
- /*==========================================================
- 4. Drehzahl Anzeige in RPM
-   ========================================================== 
+/* ==========================================================
+   DREHZAHL ANZEIGE IN RPM
    ========================================================== */
 .rpm-panel {
     display: flex;
     flex-direction: column;   
     align-items: center;     
-    gap: 10px;               
+    gap: clamp(0.4rem, 1.5vh, 0.625rem);               
     background-color: #000000;
-    border-radius: 8px;
-    border: 3px solid #5aeef1d7;
-    padding: 20px;
-    border-radius: 8px;
+    border-radius: 0.5rem;
+    border: 0.1875rem solid #5aeef1d7;
+    padding: clamp(0.75rem, 2vh, 1.25rem);
     width: fit-content;       
 }
 
 .rpm-panel h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: 28px;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
 }
 
-/* Schlichtes, primitives 4-stelliges Zahlenfeld */
 .rpm-display {
-  font-size: 40px;
+  font-size: clamp(1.5rem, 4vh, 2.5rem); /* Text schrumpft flexibel auf kleinen Bildschirmen */
   font-weight: bold;
   color: #72f0ff;
   background-color: #000000;
-  border: 2px solid #1f2937;
-  letter-spacing: 2px;
+  border: 0.125rem solid #1f2937;
+  letter-spacing: 0.125rem;
   text-align: center;
-  
-  box-shadow: inset 0 0 8px rgba(0, 216, 255, 0.3);
-    gap: 1px;
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid #1f2937;
-    box-shadow:  0px 8px 12px rgb(0, 187, 255);
-    
+  box-shadow: inset 0 0 0.5rem rgba(0, 216, 255, 0.3);
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);
+}
+
+/* ==========================================================
+   MEDIA QUERIES (Für extreme Bildschirmgrößen)
+   ========================================================== */
+/* Wenn die Höhe des Bildschirms sehr klein ist, rücken wir alles zusammen */
+@media (max-height: 600px) {
+  .sub-container3 {
+    padding: 1rem 0;
+  }
+  .containerSum {
+    justify-content: center;
+    gap: 0.5rem;
+  }
 }
