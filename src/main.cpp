@@ -3,6 +3,7 @@
 #include "PinMap.h"
 #include "DisplayController.h"
 #include "TachoStage.h"
+
 //Funktioniert!
 //Alles wesentliche für die Kommunikation zwischen Node.js und dem ESP32 über die serielle Schnittstelle (USB) ist in dieser Datei getan
 
@@ -399,8 +400,8 @@ var_RPM = aktuelleZahl;
   delay(1);
 
 
-
-
+// Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
+sendePwmStufeBeiAenderung(button_PWM_stage);
 
 
 

@@ -1,51 +1,29 @@
 #include "GatewaySerial.h"
+#include <ArduinoJson.h>
 
-// Zugriff auf deine bestehenden globalen Variablen aus dem Hauptcode (.ino / PinMap)
-extern bool ledStatus;       // Zustand deiner Bedienteil-LED
-extern int luefterSpeed;     // Zustand deiner Lüfterdrehzahl (PWM)
+// Speichert den zuletzt gesendeten Wert
+static int letzterPwmStufe = -1;
 
-// 1. Serielle Schnittstelle starten
+// 1. Initialisierung der seriellen Schnittstelle
 void initGatewaySerial(unsigned long baudrate) {
-    Serial.begin(baudrate);
+  Serial.begin(baudrate);
 }
 
-// 2. Empfangen (Web -> Hardware): Schaltet Ausgänge & aktualisiert Anzeige
+// 2. Empfang von Befehlen vom Server (Platzhalter für spätere Logik)
 void processIncomingSerial() {
-    if (Serial.available() > 0) {
-        String input = Serial.readStringUntil('\n');
-        
-        StaticJsonDocument<200> doc;
-        DeserializationError error = deserializeJson(doc, input);
-
-        if (!error) {
-            // Befehl vom Webinterface für die LED
-            if (doc.containsKey("led")) {
-                ledStatus = doc["led"];
-                digitalWrite(2, ledStatus ? HIGH : LOW); // Pin anpassen
-            }
-
-            // Befehl vom Webinterface für die Lüfterdrehzahl
-            if (doc.containsKey("speed")) {
-                luefterSpeed = doc["speed"];
-                analogWrite(9, luefterSpeed);            // Pin anpassen
-            }
-
-            // Sofortige Rückmeldung an das Webinterface zur Bestätigung
-            sendSystemState();
-        }
-    }
+  // Hier wird später der Empfang vom Node.js-Server verarbeitet
 }
 
-// 3. Senden (Hardware -> Web): Sendet den aktuellen Zustand an das Webinterface
-void sendSystemState() {
-    StaticJsonDocument<200> doc;
-    doc["led"] = ledStatus;
-    doc["speed"] = luefterSpeed;
+// 3. Deine Test-Funktion für das Senden
+void sendePwmStufeBeiAenderung(int pwmStufe) {
+  if (pwmStufe != letzterPwmStufe) {
+    StaticJsonDocument<64> doc;
+    doc["type"] = "pwmStufe";
+    doc["value"] = pwmStufe;
 
     serializeJson(doc, Serial);
-    Serial.println(); // Ende-Signal (\n) für Node.js
+    Serial.println(); // Zeilenumbruch als Trennzeichen
+
+    letzterPwmStufe = pwmStufe; // Zustand merken
+  }
 }
-
-
-
-
