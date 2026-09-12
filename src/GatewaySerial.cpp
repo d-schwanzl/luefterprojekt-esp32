@@ -1,29 +1,28 @@
 #include "GatewaySerial.h"
-#include <ArduinoJson.h>
 
-// Speichert den zuletzt gesendeten Wert
-static int letzterPwmStufe = -1;
+static int letzterBalkenWert = -1;
 
-// 1. Initialisierung der seriellen Schnittstelle
 void initGatewaySerial(unsigned long baudrate) {
   Serial.begin(baudrate);
 }
 
-// 2. Empfang von Befehlen vom Server (Platzhalter für spätere Logik)
 void processIncomingSerial() {
-  // Hier wird später der Empfang vom Node.js-Server verarbeitet
+  // Platzhalter
 }
 
-// 3. Deine Test-Funktion für das Senden
-void sendePwmStufeBeiAenderung(int pwmStufe) {
-  if (pwmStufe != letzterPwmStufe) {
-    StaticJsonDocument<64> doc;
-    doc["type"] = "pwmStufe";
-    doc["value"] = pwmStufe;
+void sendeBalkenWertBeiAenderung(int balkenWert) {
+  // --- ABSOLUTER DIREKT-BEWEIS ---
+  // Gibt den Wert aus, BEVOR irgendeine Bedingung greift!
+  Serial.print("C++ HÖRT IN DER FUNKTION: ");
+  Serial.println(balkenWert);
+  // -------------------------------
 
-    serializeJson(doc, Serial);
-    Serial.println(); // Zeilenumbruch als Trennzeichen
-
-    letzterPwmStufe = pwmStufe; // Zustand merken
+  if (balkenWert != letzterBalkenWert) {
+    if (Serial) { 
+      Serial.print("{\"type\":\"balkenWert\",\"value\":");
+      Serial.print(balkenWert);
+      Serial.println("}");
+      letzterBalkenWert = balkenWert; 
+    }
   }
 }

@@ -273,9 +273,9 @@ if (aktueller_zustandy == LUEFTER_STAGE_DOWN) {
             Serial.println("[PWM] Stufe 1: BOOST gestartet (100%)");
             var_falsche_Stoerung = true;
         } 
-        else if (millis() - actionStartTime2 >= 800) {
-            ledcWrite(OUTPUT_PWM_PIN, 240); // Zielwert für Stufe 1
-            currentDutyCycle = 240;
+        else if (millis() - actionStartTime2 >= 1500) {
+            ledcWrite(OUTPUT_PWM_PIN, 235); // Zielwert für Stufe 1
+            currentDutyCycle = 235;
             boostAktiv = true;
             var_falsche_Stoerung = false;
         }
@@ -343,7 +343,7 @@ var_RPM = aktuelleZahl;
     //Bei Booststufe
     if(!var_falsche_Stoerung){
      aktueller_zustandx = LUEFTER_STOERUNG;
-      aktueller_Zustand_B1 = 2;//Anschließend die Funktion „Lüfter aus“ aufrufen. Lüfter‑Ein‑Funktion aufrufenButton PWM Stage Größe 1
+      aktueller_Zustand_B1 = 2;//STOERUNG  Anschließend die Funktion „Lüfter aus“ aufrufen. Lüfter‑Ein‑Funktion aufrufenButton PWM Stage Größe 1
       
       ledcWrite(OUTPUT_PWM_PIN, 255);
       currentDutyCycle = 255;
@@ -393,15 +393,21 @@ var_RPM = aktuelleZahl;
 
 
 /*An Quelldatei des C++‑Display‑Controllers zur Auswertung senden*/
-  uint8_t balkenWert = (aktueller_zustandx == LUEFTER_AUS || button_PWM_stage < 0) ? 0 : button_PWM_stage;
+  int balkenWert = (aktueller_zustandx == LUEFTER_AUS || button_PWM_stage < 0) ? 0 : button_PWM_stage;
+// Zur Sicherheit auf den Bereich 0..4 begrenzen
+if (balkenWert > 4) balkenWert = 4;
+if (balkenWert < 0) balkenWert = 0;
+
+
   sendeBalkenAnzeige(balkenWert);  //Sende die Pulsweitenmodulationsstufe: 0-4
   sendeSegment(aktuelleZahl);  //Sende den Wert Drehzahlstufe, Geschwindigkeit des Lüfters
   blinken(aktueller_Zustand_B1);   //Sende den Zustand der drei LEDs an die Steuerung
+  
+// Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
+sendeBalkenWertBeiAenderung(balkenWert);
+
   delay(1);
 
-
-// Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
-sendePwmStufeBeiAenderung(button_PWM_stage);
 
 
 

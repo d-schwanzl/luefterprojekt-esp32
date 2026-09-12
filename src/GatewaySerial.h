@@ -8,6 +8,6 @@ void initGatewaySerial(unsigned long baudrate);
 void processIncomingSerial();
 
 // Für deinen aktuellen Test (Stufen-Variable bei Änderung senden):
-void sendePwmStufeBeiAenderung(int pwmStufe);
+void  sendeBalkenWertBeiAenderung(int balkenWert);
 
 #endif
