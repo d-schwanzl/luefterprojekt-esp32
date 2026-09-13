@@ -35,8 +35,10 @@ h2 {
   text-align: center;
   padding: 0.625rem 0;              /* Gibt dem Text im Balken etwas Luft nach oben und unten */
   background: #0ea0a0;        /* Deine eigene Hintergrundfarbe für die Überschrift */
-  border-bottom: 0.125rem solid #062035; /* Optional: Unterstreicht die Überschrift mit einer Linie */
+  border-bottom:  0.15rem solid #35d3f3; 
+  
 }
+
 
 /* ==========================================================
    WRAPPER
@@ -62,22 +64,16 @@ h2 {
   height: 100%;
   display: flex;
   flex-direction: column;  /* Unter-Container untereinander stapeln */
+ 
 }
 
-#container-links {  
 
 
-}
-
-#container-rechts {
-
-  border-left: 0.25rem solid #062035;
-}
 
 /* ==========================================================
    SUB-CONTAINER (Inhaltsbereiche)
    ========================================================== */
-/* Anordnung gestapelt */
+/* Taster Anordnung nebeneinander (Bedienfeld oben) */
 .sub-container1 {           
   flex: 1;        
   display: flex;          
@@ -85,10 +81,10 @@ h2 {
   justify-content: center;  
   align-items: center;   
   /* Flexibler Abstand: Passt sich der Bildschirmbreite an, zwischen 20px und 50px */
-  gap: clamp(1.25rem, 4vw, 3.125rem);      
+  gap: clamp(3.25rem, 6vw, 6.125rem);      
 }
 
-/* Anordnung nebeneinander (Bedienfeld unten) */
+/* Taster Anordnung untereinander (Bedienfeld unten) */
 .sub-container2 {           
   flex: 1;   
   display: flex;          
@@ -96,7 +92,7 @@ h2 {
   justify-content: center;  
   align-items: center;   
   /* Flexibler Abstand: Passt sich der Bildschirmhöhe an, zwischen 15px und 25px */
-  gap: clamp(0.9375rem, 3vh, 1.5625rem); 
+  gap: clamp(4rem, 4vw, 6em);     
   margin-bottom: 2.5rem;  
 }
 
@@ -107,10 +103,12 @@ h2 {
   justify-content: center;  
   align-items: flex-start;  /* Verhindert, dass das linke Matrix-Panel gestreckt wird! */
   /* Flexibler Abstand: Passt sich der Bildschirmbreite an */
-  gap: clamp(1.25rem, 5vw, 3.125rem);               
+  gap: clamp(2rem, 4vw, 6rem);               
   width: 100%;
   height: 100%;           
-  padding: 2.5rem 0;         
+  padding: 2.5rem 0;
+  border-left: 0.15rem solid #35d3f3;   
+   container-type: inline-size;    
 
 }
 
@@ -120,7 +118,7 @@ h2 {
 .taster {
 
   aspect-ratio: 1 / 1;
-  width: clamp(5.625rem, 10vw, 9.375rem);
+ width: 10rem; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,13 +147,13 @@ h2 {
 
 .taster--ein {
    font-weight: 780;
-  font-size: clamp(1.1rem, 2.5vw, 2.9rem);
+  font-size: 2.9rem;
   color: #06ff8b;
 }
 
 .taster--aus {
    font-weight: 780;
-  font-size: clamp(1.1rem, 2.5vw, 2.9rem);
+  font-size: 2.9rem;
 
   color: rgb(234, 58, 58);
 }
@@ -163,7 +161,7 @@ h2 {
 .taster--hoch {
 
   font-weight: 550;
-  font-size: clamp(0.8rem, 1.8vw, 2rem);
+   font-size: 1.9rem;
   color: #0088ff;
 }
 
@@ -171,7 +169,7 @@ h2 {
 
 
   font-weight: 550;
-  font-size: clamp(0.8rem, 1.8vw, 2rem);
+   font-size: 1.9rem;
   color: #0088ff;
 }
 
@@ -185,7 +183,7 @@ h2 {
     background-color: #000000; 
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vh, 1.25rem); /* Flexibles Padding */
+    padding: clamp(0.75rem, 1.9vw, 1.25rem); /* Flexibles Padding */
 }
 
 .led-group1 h1 {
@@ -235,33 +233,36 @@ h2 {
      justify-content: space-between; 
      height: 100%;                  
      align-items: center;
-     /* Falls der Bildschirm in der Höhe zu klein wird, rücken die Boxen näher zusammen */
-     gap: clamp(0.625rem, 2vh, 3.125rem); 
+
 }
 
 /* ==========================================================
    BARGRAPH 4 LEDs
    ========================================================== */
 .led-group2 {
-    display: flex;
+  display: flex;
     flex-direction: column;   
     align-items: center;      
-    gap: clamp(0.5rem, 1.5vh, 0.9375rem);               
+    gap: clamp(0rem, 0vw, 0rem); /* Abstand zwischen Überschrift und LED-Reihe wächst mit */
     background-color: #000000;
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vh, 1.25rem);
-    width: fit-content;       
+    width: clamp(13rem, 13vw, 15rem);
+    min-width: 0;
+    padding: clamp(0.5rem, 2vw, 1.5rem); /* Optional: Auch der Innenabstand skaliert fließend */
+       
 }
 
 .led-container2 {
     display: flex;
     flex-direction: row;      
-    gap: clamp(0.5rem, 2vw, 1.125rem);               
+    gap: clamp(0rem, 0.5vw, 2rem); /* HIER: Der Abstand zwischen den LEDs wächst dynamisch mit der Containergröße! */
+            
 }
 
 .led-group2 h1 {
     margin: 0;
+    padding-bottom: 10px;;
     font-family: sans-serif;
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
@@ -271,6 +272,7 @@ h2 {
 
 .led-group2 span {
     margin: 0;
+    padding-top: 8px;
     font-family: sans-serif;
     font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
     color: #efeff9cd;
@@ -281,7 +283,7 @@ h2 {
     display: flex;
     flex-direction: column;   
     align-items: center;      
-    gap: 0.5rem;
+   
 }
 
 .led-label {
@@ -313,12 +315,12 @@ h2 {
     display: flex;
     flex-direction: column;   
     align-items: center;      
-    gap: clamp(0.5rem, 1.5vh, 0.9375rem);               
+    gap: clamp(0.5rem, 1.5vw, 0.9375rem);               
     background-color: #000000;
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vh, 1.25rem);
-    width: fit-content;       
+    padding: clamp(0.75rem, 2vw, 1.25rem);
+      
 }
 
 .matrix-panel h1 {
@@ -334,7 +336,7 @@ h2 {
     display: grid;
     /* Damit die Matrix auf kleinen Bildschirmen nicht bricht, nutzen wir hier mitschrumpfende rem-Werte */
     grid-template-columns: repeat(4, clamp(0.4rem, 1vw, 0.625rem)); 
-    grid-template-rows: repeat(9, clamp(0.35rem, 0.9vh, 0.5rem));    
+    grid-template-rows: repeat(9, clamp(0.35rem, 0.9vw, 0.5rem));    
     gap: 0.0625rem;
     padding: clamp(0.5rem, 1.5vh, 1rem);
     background-color: #000000;
@@ -398,16 +400,18 @@ h2 {
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
     padding: clamp(0.75rem, 2vh, 1.25rem);
-    width: fit-content;       
+    
 }
 
 .rpm-panel h1 {
     margin: 0;
+    padding-bottom: 15px;
     font-family: sans-serif;
     font-size: clamp(1.25rem, 2.5vw, 1.75rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
+    
 }
 
 .rpm-display {
@@ -422,7 +426,9 @@ h2 {
   padding: 0.625rem;
   border-radius: 0.5rem;
   box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);
+min-width: 6ch;   /* NEU: reserviert immer Platz für 4 Zeichen */
 }
+
 
 /* ==========================================================
    MEDIA QUERIES (Für extreme Bildschirmgrößen)
@@ -434,6 +440,7 @@ h2 {
   }
   .containerSum {
     justify-content: center;
-    gap: 0.5rem;
+    /* gap: 0.5rem; */
   }
 }
+

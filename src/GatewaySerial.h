@@ -5,12 +5,16 @@
 
 // Für die Gesamtanbindung:
 void initGatewaySerial(unsigned long baudrate);
-void processIncomingSerial();
 
-// Für deinen aktuellen Test (Stufen-Variable bei Änderung senden):
+
+// Sendet den Wert der Balkenazeige bei Änderung
 void  sendeBalkenWertBeiAenderung(int balkenWert);
 
-//Sendet den PWM‑Anzeigewert bei Änderung.
+//Sendet den PWM‑Anzeigewert bei Änderung
 void sendeSegmentWertbeiAenderung(int aktuelleZahl);
+
+//Sendet die aktuelle Drehzahl bei einer Änderung
+void sendeAktuelleRPM(int currentRpm);
+
 
 #endif

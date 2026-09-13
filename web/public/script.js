@@ -17,6 +17,10 @@ socket.onmessage = (event) => {
     if (data.type === 'SegmentWert') {
       zeigeZifferAufMatrix(data.value);   // <- hier rufst du deine neue Funktion auf
     }
+    if (data.type === 'currentRpm') {
+      zeigeRpmAufTacho(data.value);   // <- hier rufst du deine neue Funktion auf
+    }
+
   } catch (e) {
     console.error('Fehler beim Verarbeiten der Nachricht:', e);
   }
@@ -53,4 +57,17 @@ function zeigeZifferAufMatrix(number) {     //Number muss nicht definiert werden
 
   element.classList.add(`n${number}`);
 }
+
+
+// Ändert die Zahl auf der Tachoanzeige.
+function  zeigeRpmAufTacho(RpmNumber) {
+
+  const element = document.getElementById('rpm-value');
+  if (element) {
+    element.textContent = RpmNumber;
+  }
+
+}
+
+
 

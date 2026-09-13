@@ -180,7 +180,7 @@ pinMode(OUTPUT_PWM_PIN, OUTPUT);
 
 
 
-Serial.println("Bereit.");
+
 
 attachInterrupt(
   digitalPinToInterrupt(Taster_AUS),
@@ -215,7 +215,7 @@ ledcWrite(OUTPUT_PWM_PIN, 0);
 
 void loop() {
  
-  processIncomingSerial();    //Puffer auslesen der seriellen Schnittstelle(Sind dort neue Byte-Daten angekommen. SObald ein vollständiger Befehl erkannt wird löst die Funktion die entsprechende Logik aus)
+ 
   tasterHochRunterVerarbeiten();
  if(aktueller_zustandx == LUEFTER_EIN) {
 
@@ -407,6 +407,8 @@ if (balkenWert < 0) balkenWert = 0;
 sendeBalkenWertBeiAenderung(balkenWert);
 //Sendet den Wert der 7‑Segmentanzeige
 sendeSegmentWertbeiAenderung(aktuelleZahl);
+//Sendet die aktuelle Lüfterdrehzahl
+sendeAktuelleRPM(currentRpm);
   delay(1);
 
 
