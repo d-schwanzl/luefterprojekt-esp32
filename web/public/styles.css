@@ -10,11 +10,18 @@
 html, body {
   width: 100%;
   height: 100%;
+   font-family: roboto, sans-serif;
+  background: linear-gradient(
+    90deg, 
+    #020618 0%, 
+    #0d1f46 40%, 
+    #0d204a 50%, 
+    #0d1f46 60%, 
+    #020618 100%
+  );
 }
 
-body {
- font-family: roboto, sans-serif;
-}
+
 
 h2 {
   margin: 0;
@@ -27,7 +34,7 @@ h2 {
   font-weight: 800;
   text-align: center;
   padding: 0.625rem 0;              /* Gibt dem Text im Balken etwas Luft nach oben und unten */
-  background: #d7f38a;        /* Deine eigene Hintergrundfarbe für die Überschrift */
+  background: #0ea0a0;        /* Deine eigene Hintergrundfarbe für die Überschrift */
   border-bottom: 0.125rem solid #062035; /* Optional: Unterstreicht die Überschrift mit einer Linie */
 }
 
@@ -43,6 +50,7 @@ h2 {
   width: 100%;
   height: 100vh;          /* volle Bildschirmhöhe */
   overflow: hidden;        /* Verhindert, dass Scrollbalken entstehen */
+
 }
 
 /* ==========================================================
@@ -57,12 +65,12 @@ h2 {
 }
 
 #container-links {  
-   background: transparent;
-   background: #d78c0b3b;  
+
+
 }
 
 #container-rechts {
-  background: transparent; 
+
   border-left: 0.25rem solid #062035;
 }
 
@@ -103,58 +111,68 @@ h2 {
   width: 100%;
   height: 100%;           
   padding: 2.5rem 0;         
-  background: #fff1895a;   
+
 }
 
 /* ==========================================================
    ELEMENTE VON BEDIENFELD (Taster)
    ========================================================== */
 .taster {
-  aspect-ratio: 1 / 1;      /* erzwingt: Breite = Höhe, also quadratisch */
-  /* Flexible Breite: Passt sich dem Bildschirm an, schrumpft auf kleinen Monitoren mit */
-  width: clamp(5.625rem, 10vw, 9.375rem);              
+
+  aspect-ratio: 1 / 1;
+  width: clamp(5.625rem, 10vw, 9.375rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
-  display: flex;             /* zum Zentrieren des Inhalts */
-  align-items: center;       /* vertikal mittig */
-  justify-content: center;   /* horizontal mittig */
-  
-  border: 0.1875rem solid #141274e0;
+  border: 0.1875rem solid #5aeef1d7;
   border-radius: 1.25rem;
-  background: #3e7ebe;
-  color: #0a0a8ccd;
+  background: radial-gradient(circle at center, #111118 0%, #000000 100%);
+  /* color: #5aeef1; Heller für besseren Kontrast */ 
   cursor: pointer;
+  
+  /* Statische Tiefe und Leuchten */
+  box-shadow: 0 10px 10px rgba(234, 228, 228, 0.5), 
+              0 0 12px rgba(90, 238, 241, 0.2);
+
+
 }
 
+
 .taster:hover {
-   filter: brightness(1.6);
+   filter: brightness(2);
 }
 
 .taster:active {
-  transform: translateY(0.125rem);   /* kleiner "Klick"-Effekt beim Drücken */
+  transform: translateY(0.225rem);   /* kleiner "Klick"-Effekt beim Drücken */
 }
 
 .taster--ein {
-  background: #29cc46;
-  font-size: clamp(1.5rem, 3vw, 2.5rem); /* Schrift schrumpft auf kleinen Bildschirmen */
-  font-weight: 750;
+   font-weight: 780;
+  font-size: clamp(1.1rem, 2.5vw, 2.9rem);
+  color: #06ff8b;
 }
 
 .taster--aus {
-  background: #bb2121;
-  font-size: clamp(1.5rem, 3vw, 2.5rem); /* Schrift schrumpft auf kleinen Bildschirmen */
-  font-weight: 750;
+   font-weight: 780;
+  font-size: clamp(1.1rem, 2.5vw, 2.9rem);
+
+  color: rgb(234, 58, 58);
 }
 
 .taster--hoch {
-  background: #bdbdb8db;
-  font-size: clamp(1.125rem, 2vw, 1.625rem);
-  font-weight: 750;
+
+  font-weight: 550;
+  font-size: clamp(0.8rem, 1.8vw, 2rem);
+  color: #0088ff;
 }
 
 .taster--runter {
-  background: #bdbdb8db;
-  font-size: clamp(1.125rem, 2vw, 1.625rem);
-  font-weight: 750;
+
+
+  font-weight: 550;
+  font-size: clamp(0.8rem, 1.8vw, 2rem);
+  color: #0088ff;
 }
 
 /* ==========================================================
