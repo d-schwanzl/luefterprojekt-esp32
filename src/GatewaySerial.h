@@ -10,4 +10,7 @@ void processIncomingSerial();
 // Für deinen aktuellen Test (Stufen-Variable bei Änderung senden):
 void  sendeBalkenWertBeiAenderung(int balkenWert);
 
+//Sendet den PWM‑Anzeigewert bei Änderung.
+void sendeSegmentWertbeiAenderung(int aktuelleZahl);
+
 #endif

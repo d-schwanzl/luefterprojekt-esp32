@@ -1,3 +1,5 @@
+//Komplette bidirektionale Verbindung, quasi der Postbote zwischen Frontend: script.js und GatewaySerial.pp des ESPs
+
 const express = require('express');
 const path = require('path');
 const { SerialPort } = require('serialport');
@@ -31,25 +33,44 @@ const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 const wss = new WebSocketServer({ port: 8080 });
 console.log('WebSocket Server läuft auf ws://localhost:8080');
 
-// 6. Empfangene Daten vom ESP32 verarbeiten und an Browser schicken
+// 6. Empfangene Daten vom ESP32 verarbeiten und an alle Browser weiterreichen
 parser.on('data', (line) => {
   const cleanLine = line.trim();
   if (!cleanLine) return;
 
   try {
     const data = JSON.parse(cleanLine);
-    
-    if (data.type === 'balkenWert') {
-      console.log(`Empfangener balkenWert vom ESP32: ${data.value}`);
+    console.log(`Empfangen: ${data.type} = ${data.value}`);
 
-      // Per WebSocket live an alle verbundenen Browser-Clients senden
-      wss.clients.forEach((client) => {
-        if (client.readyState === WebSocket.OPEN) {
-          client.send(JSON.stringify(data));
-        }
-      });
-    }
+    // Egal welcher "type" drinsteht – einfach durchreichen
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(JSON.stringify(data));
+      }
+    });
   } catch (err) {
     // Ungültiges JSON ignorieren
   }
 });
+
+
+// 7. Befehle vom Browser empfangen und an den ESP32 weiterreichen
+wss.on('connection', (ws) => {
+  console.log('Browser verbunden.');
+
+  ws.on('message', (message) => {
+    const cleanMessage = message.toString().trim();
+    console.log('Vom Browser empfangen:', cleanMessage);
+
+    // Direkt an den ESP32 über die serielle Schnittstelle weiterreichen
+    port.write(cleanMessage + '\n');
+  });
+
+  ws.on('close', () => {
+    console.log('Browser getrennt.');
+  });
+});
+
+
+
+

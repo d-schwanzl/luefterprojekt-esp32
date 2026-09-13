@@ -405,7 +405,8 @@ if (balkenWert < 0) balkenWert = 0;
   
 // Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
 sendeBalkenWertBeiAenderung(balkenWert);
-
+//Sendet den Wert der 7‑Segmentanzeige
+sendeSegmentWertbeiAenderung(aktuelleZahl);
   delay(1);
 
 

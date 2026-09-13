@@ -5,12 +5,17 @@ socket.onopen = () => {
   console.log('Erfolgreich mit dem Server verbunden.');
 };
 
+
+
 socket.onmessage = (event) => {
   try {
     const data = JSON.parse(event.data);
 
     if (data.type === 'balkenWert') {
       updateLeds(data.value);
+    }
+    if (data.type === 'SegmentWert') {
+      zeigeZifferAufMatrix(data.value);   // <- hier rufst du deine neue Funktion auf
     }
   } catch (e) {
     console.error('Fehler beim Verarbeiten der Nachricht:', e);
@@ -35,3 +40,17 @@ function updateLeds(level) {
     }
   }
 }
+
+
+/* Aktualisiert die Matrixanzeige, die die 7‑Segmentanzeige am Anzeigeteil betrifft.*/
+
+function zeigeZifferAufMatrix(number) {     //Number muss nicht definiert werden; es ist ein Funktionsparameter und allein bereits die Definition in JavaScript, Nicht so in C oder C++.
+  const element = document.querySelector('.matrix-display');
+
+  for (let i = 0; i <= 9; i++) {
+    element.classList.remove(`n${i}`);
+  }
+
+  element.classList.add(`n${number}`);
+}
+
