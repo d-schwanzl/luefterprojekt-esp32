@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <ArduinoJson.h>
 #include "GatewaySerial.h"
 #include "PinMap.h"
 #include "DisplayController.h"
@@ -227,9 +228,43 @@ ledcWrite(OUTPUT_PWM_PIN, 0);
 }
 
 
+//Das ist die Funktion, die die Befehle der vier Tasten verarbeitet, die in den Mikrocontroller gelangen.
+void processIncomingSerial() {
+  if (Serial.available() > 0) {
+    String eingabe = Serial.readStringUntil('\n');
+    eingabe.trim();
+    if (eingabe.length() == 0) return;
+
+    StaticJsonDocument<128> doc;
+    DeserializationError error = deserializeJson(doc, eingabe);
+    if (error) return;   // ungültiges JSON ignorieren
+
+    if (doc["type"] == "command") {
+      String action = doc["action"];
+
+      if (action == "ein") {
+        if (aktueller_zustandx != LUEFTER_STOERUNG) {
+          aktueller_zustandx = LUEFTER_EIN;
+        }
+      } else if (action == "aus") {
+        aktueller_zustandx = LUEFTER_AUS;
+      } else if (action == "hoch") {
+        aktueller_zustandy = LUEFTER_STAGE_UP;
+      } else if (action == "runter") {
+        aktueller_zustandy = LUEFTER_STAGE_DOWN;
+      }
+    }
+  }
+}
+
+
+
+
 void loop() {
  
- 
+  processIncomingSerial();    //Rufe die serielle Eingabe auf: Haben Befehle vom Web-Interface eingetroffen?
+
+
   tasterHochRunterVerarbeiten();
  if(aktueller_zustandx == LUEFTER_EIN) {
 

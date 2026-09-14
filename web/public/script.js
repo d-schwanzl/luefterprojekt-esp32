@@ -9,6 +9,33 @@ socket.onopen = () => {
 const letzterUpdateZeiten = {};
 const drosselIntervallMs = 250; // Einheits-Intervall für alle (250 ms)
 
+
+
+//Die vier Taster
+const btnEin = document.querySelector('.taster--ein');
+const btnAus = document.querySelector('.taster--aus');
+const btnHoch = document.querySelector('.taster--hoch');
+const btnRunter = document.querySelector('.taster--runter');
+
+btnEin.addEventListener('click', () => {
+  socket.send(JSON.stringify({ type: 'command', action: 'ein' }));
+});
+
+btnAus.addEventListener('click', () => {
+  socket.send(JSON.stringify({ type: 'command', action: 'aus' }));
+});
+
+btnHoch.addEventListener('click', () => {
+  socket.send(JSON.stringify({ type: 'command', action: 'hoch' }));
+});
+
+btnRunter.addEventListener('click', () => {
+  socket.send(JSON.stringify({ type: 'command', action: 'runter' }));
+});
+
+
+
+
 // Universelle Drosselungsfunktion
 function aktualisiereGedrosselt(schluessel, wert, ausfuehrungsFunktion) {
   const jetzt = Date.now();
@@ -39,9 +66,9 @@ socket.onmessage = (event) => {
     if (data.type === 'balkenWert') {
             console.log(">>> BALKENWERT ERKANNT:", data.value);
 
-      aktualisiereGedrosselt('balken', data.value, (wert) => {
-        updateLeds(wert);
-      });
+    
+        updateLeds(data.value);
+
     }
 
     // 2. Segmentwert gedrosselt verarbeiten

@@ -27,4 +27,8 @@ void sendeWertLedLuefterAn(bool LedLuefterAn);
 void sendeWertLedLuefterStoerung(bool LedLuefterStoerung);
 
 
+
+// Verarbeitet eingehende Befehle vom Webinterface (Web -> Hardware)
+void processIncomingSerial();
+
 #endif
