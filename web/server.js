@@ -33,26 +33,35 @@ const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 const wss = new WebSocketServer({ port: 8080 });
 console.log('WebSocket Server läuft auf ws://localhost:8080');
 
-// 6. Empfangene Daten vom ESP32 verarbeiten und an alle Browser weiterreichen
 parser.on('data', (line) => {
+
   const cleanLine = line.trim();
+
+  console.log("VOM ESP32:", cleanLine);
+
   if (!cleanLine) return;
 
   try {
     const data = JSON.parse(cleanLine);
-    console.log(`Empfangen: ${data.type} = ${data.value}`);
 
-    // Egal welcher "type" drinsteht – einfach durchreichen
+    console.log("JSON ERKANNT:", data);
+
     wss.clients.forEach((client) => {
+
+      console.log("CLIENT STATUS:", client.readyState);
+
       if (client.readyState === WebSocket.OPEN) {
+        console.log("SENDE AN BROWSER:", JSON.stringify(data));
         client.send(JSON.stringify(data));
       }
+
     });
+
   } catch (err) {
-    // Ungültiges JSON ignorieren
+    console.log("JSON FEHLER:", cleanLine);
+    console.log(err.message);
   }
 });
-
 
 // 7. Befehle vom Browser empfangen und an den ESP32 weiterreichen
 wss.on('connection', (ws) => {

@@ -1,5 +1,7 @@
 #include "DisplayController.h"
 #include "PinMap.h"
+
+
 // Variablen für das 1-Hz-Blinken (Störung)
 unsigned long letzteBlinkZeit = 0;
 bool signalZustand = false;
@@ -7,6 +9,7 @@ bool signalZustand = false;
 // Globaler Speicher für die aktuellen Indizes beider Register
 byte aktuellesSegment = 0; // Index 0..9 für 7-Segment
 byte aktuellesLED     = 0; // Index 0..4 für Balkenanzeige
+
 
 
 // Baustein 2: Balkenanzeige (2. Register)
@@ -83,6 +86,11 @@ void blinken(int8_t zustand) {
   }
 }
 
+
+
+
+
+
 // Hauptfunktion: Sendet beide Bytes synchron an die Kaskade
 void sendeDaten(byte segmentIndex, byte ledIndex) {
   aktuellesSegment = segmentIndex; // Index merken
@@ -100,11 +108,16 @@ void sendeDaten(byte segmentIndex, byte ledIndex) {
 
   
   digitalWrite(LATCH_PIN, HIGH);
+
+
+
+
 }
 
 // Hilfsfunktion: Nur 7-Segment ändern
 void sendeSegment(byte segmentIndex) {
   sendeDaten(segmentIndex, aktuellesLED);
+
 }
 
 // Hilfsfunktion: Nur Balkenanzeige ändern

@@ -30,8 +30,15 @@ int8_t letzterZustand   = -1;
 // //Modul 1-3
 // volatile uint16_t currentRpm = 0;
 
+
+
 //Modul 3
 uint8_t aktuelleZahl = 0;  //Ausgabe Zahl auf Anzeige
+//Modul 3
+int stabileZahl = 0;   //Das ist die stabile Zahl die übergeben wird
+int lasttimeSegment = 0;
+int lastSegment = 0;
+
 
 
 
@@ -325,10 +332,10 @@ button_PWM_stage = -1;
 
     uint8_t currentStage = getStageFromRpm(currentRpm);
 
-    Serial.print("RPM: ");
-    Serial.print(currentRpm);
-    Serial.print(" | Stage: ");
-    Serial.println(currentStage);
+    // Serial.print("RPM: ");
+    // Serial.print(currentRpm);
+    // Serial.print(" | Stage: ");
+    // Serial.println(currentStage);
 
     aktuelleZahl = currentStage;
   }
@@ -403,17 +410,46 @@ if (balkenWert < 0) balkenWert = 0;
   sendeSegment(aktuelleZahl);  //Sende den Wert Drehzahlstufe, Geschwindigkeit des Lüfters
   blinken(aktueller_Zustand_B1);   //Sende den Zustand der drei LEDs an die Steuerung
   
+
+
+
 // Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
 sendeBalkenWertBeiAenderung(balkenWert);
 //Sendet den Wert der 7‑Segmentanzeige
-sendeSegmentWertbeiAenderung(aktuelleZahl);
+
+
+
+
 //Sendet die aktuelle Lüfterdrehzahl
 sendeAktuelleRPM(currentRpm);
-  delay(1);
 
 
 
+
+//Keinen falschen Segmentwert-Ausreißer an Web-Interface übergeben. Stufe muss mindestens 100 ms stabil sein.
+
+
+if (aktuelleZahl != lastSegment) {
+    lastSegment = aktuelleZahl;
+    lasttimeSegment = millis();
+}
+
+if (millis() - lasttimeSegment > 100) {
+    stabileZahl = lastSegment;
+    sendeSegmentWertbeiAenderung(stabileZahl);  //Bitte sende an die serielle Schnittstelle, wenn der Zustand stabil ist, Den Wert der Segmentanzeige.
 
 }
+
+
+
+
+
+
+
+delay(1);
+
+}
+
+
 
 

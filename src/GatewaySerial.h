@@ -13,6 +13,9 @@ void  sendeBalkenWertBeiAenderung(int balkenWert);
 //Sendet den PWM‑Anzeigewert bei Änderung
 void sendeSegmentWertbeiAenderung(int aktuelleZahl);
 
+
+
+
 //Sendet die aktuelle Drehzahl bei einer Änderung
 void sendeAktuelleRPM(int currentRpm);
 

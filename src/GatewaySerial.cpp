@@ -17,12 +17,14 @@ void initGatewaySerial(unsigned long baudrate) {
 
 void sendeBalkenWertBeiAenderung(int balkenWert) {
 
-  Serial.print("C++ HÖRT IN DER FUNKTION: ");
-  Serial.println(balkenWert);
+  // Serial.print("C++ HÖRT IN DER FUNKTION: ");
+  // Serial.println(balkenWert);
   // -------------------------------
 
   if (balkenWert != letzterBalkenWert) {
     if (Serial) { 
+        Serial.println(balkenWert);
+
       Serial.print("{\"type\":\"balkenWert\",\"value\":");
       Serial.print(balkenWert);
       Serial.println("}");
@@ -31,29 +33,35 @@ void sendeBalkenWertBeiAenderung(int balkenWert) {
   }
 }
 
+
+
+
+
+
 void sendeSegmentWertbeiAenderung(int SegmentWert) {
+  if (SegmentWert != letzterSegmentWert) {
 
-    Serial.print("C++ HÖRT IN DER FUNKTION: ");
+
+ if (Serial) {
   Serial.println(SegmentWert);
-
-  if (SegmentWert != letzterSegmentWert ) {
-    if (Serial) {
       Serial.print("{\"type\":\"SegmentWert\",\"value\":");
         Serial.print(SegmentWert);
       Serial.println("}");
       letzterSegmentWert = SegmentWert;   // ← das fehlte
     }
+
+
   }
 }
 
 
 void sendeAktuelleRPM(int currentRpm) {
 
-  Serial.print("C++ HÖRT IN DER FUNKTION: ");
-  Serial.println(currentRpm);
 
-  if (currentRpm != currentRpm ) {
+  if (letzteCurrentRpm != currentRpm ) {
     if (Serial) {
+      
+  Serial.println(currentRpm);
       Serial.print("{\"type\":\"currentRpm\",\"value\":");
         Serial.print(currentRpm);
       Serial.println("}");
