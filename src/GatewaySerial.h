@@ -20,4 +20,11 @@ void sendeSegmentWertbeiAenderung(int aktuelleZahl);
 void sendeAktuelleRPM(int currentRpm);
 
 
+//Die drei Funktionen der 3 LEDs:Lüfter Status Anzeige  
+
+void sendeWertLedLuefterAus(bool LedLuefterAus);
+void sendeWertLedLuefterAn(bool LedLuefterAn);
+void sendeWertLedLuefterStoerung(bool LedLuefterStoerung);
+
+
 #endif

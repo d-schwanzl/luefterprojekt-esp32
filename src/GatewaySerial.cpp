@@ -8,6 +8,12 @@ static int letzterSegmentWert = -1;
 static int letzteCurrentRpm = -1;
 
 
+
+static bool letzterZustandLedLuefterAus = 1;
+static bool letzterZustandLedLuefterAn =1; 
+static bool letzterZustandLedLuefterStoerung = 1;
+
+
 void initGatewaySerial(unsigned long baudrate) {
   Serial.begin(baudrate);
 }
@@ -69,3 +75,54 @@ void sendeAktuelleRPM(int currentRpm) {
     }
   }
 }
+
+
+
+
+void sendeWertLedLuefterAus(bool LedLuefterAus) {
+
+
+  if (letzterZustandLedLuefterAus != LedLuefterAus ) {
+    if (Serial) {
+      
+  Serial.println(LedLuefterAus);
+      Serial.print("{\"type\":\"LedLuefterAus\",\"value\":");
+        Serial.print(LedLuefterAus);
+      Serial.println("}");
+      letzterZustandLedLuefterAus = LedLuefterAus;   // ← das fehlte
+    }
+  }
+}
+
+
+void sendeWertLedLuefterAn(bool LedLuefterAn){
+
+
+  if (letzterZustandLedLuefterAn != LedLuefterAn ) {
+    if (Serial) {
+      
+  Serial.println(LedLuefterAn);
+      Serial.print("{\"type\":\"LedLuefterAn\",\"value\":");
+        Serial.print(LedLuefterAn);
+      Serial.println("}");
+      letzterZustandLedLuefterAn = LedLuefterAn;   // ← das fehlte
+    }
+  }
+}
+
+
+void sendeWertLedLuefterStoerung(bool LedLuefterStoerung) {
+
+
+  if (letzterZustandLedLuefterStoerung != LedLuefterStoerung ) {
+    if (Serial) {
+      
+  Serial.println(LedLuefterStoerung);
+      Serial.print("{\"type\":\"LedLuefterStoerung\",\"value\":");
+        Serial.print(LedLuefterStoerung);
+      Serial.println("}");
+      letzterZustandLedLuefterStoerung = LedLuefterStoerung;   // ← das fehlte
+    }
+  }
+}
+

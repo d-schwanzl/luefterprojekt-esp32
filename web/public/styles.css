@@ -219,10 +219,21 @@ h2 {
     text-align: center;
 }
 
-.led-items1 .led.active {
-   background-color: #68f6a1; 
+
+#symbol-led1.active {
+   background-color: #f87373;
+   box-shadow: 0 0 0.5rem #fc0101;, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+}
+
+#symbol-led2.active {
+   background-color: #71f6a6; 
    box-shadow: 0 0 0.5rem #00ff66, 0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
+#symbol-led3.active {
+   background-color: #fbff00; 
+   box-shadow: 0 0 0.5rem #fafe00, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+}
+
 
 /* ==========================================================
    CONTAINER SUMMEN

@@ -39,6 +39,13 @@ int stabileZahl = 0;   //Das ist die stabile Zahl die übergeben wird
 int lasttimeSegment = 0;
 int lastSegment = 0;
 
+//Variablen LEDs der Lüfterstatusanzeige im Webinterface
+bool LedLuefterAn = false;
+bool LedLuefterAus = true;
+bool LedLuefterStoerung = false;
+
+
+
 
 
 
@@ -381,15 +388,25 @@ var_RPM = aktuelleZahl;
       case 0:
         digitalWrite(LED_EIN, HIGH);
         Serial.println("0 -> [BETRIEB / EIN] | LED_EIN aktiv");
+        LedLuefterAn = true;
+        LedLuefterAus = false;
+        LedLuefterStoerung = false;
         break;
 
       case 1:
         digitalWrite(LED_AUS, HIGH);
         Serial.println("1 -> [AUS] | LED_AUS aktiv");
+        LedLuefterAus = true;
+        LedLuefterAn = false;
+        LedLuefterStoerung = false;
+
         break;
 
       case 2:
         Serial.println("2 -> [STÖRUNG] | LED_STÖRUNG blinkt mit 1 Hz");
+        LedLuefterStoerung = true;
+        LedLuefterAn = false;
+        LedLuefterAus = false;
         break;
     }
 
@@ -441,6 +458,13 @@ if (millis() - lasttimeSegment > 100) {
 }
 
 
+
+//Senden der Werte der drei LEDs des Panels Lüfter Statusanzeige
+sendeWertLedLuefterAus(LedLuefterAus);
+
+sendeWertLedLuefterAn(LedLuefterAn);
+
+sendeWertLedLuefterStoerung(LedLuefterStoerung);
 
 
 

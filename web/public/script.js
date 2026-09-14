@@ -62,6 +62,43 @@ socket.onmessage = (event) => {
       });
     }
 
+        // Lüfter-Statusanzeige LED AUS
+if (data.type === 'LedLuefterAus') {
+  const element = document.getElementById('symbol-led1');
+  if (element) {
+    if (data.value == 0) {
+      element.classList.remove('active');
+    } else {
+      element.classList.add('active');
+    }
+  }
+}
+
+        // Lüfter-Statusanzeige LED EIN
+if (data.type === 'LedLuefterAn') {
+  const element = document.getElementById('symbol-led2');
+  if (element) {
+    if (data.value == 0) {
+      element.classList.remove('active');
+    } else {
+      element.classList.add('active');
+    }
+  }
+}
+
+         // Lüfter-Statusanzeige LED STOERUNG
+if (data.type === 'LedLuefterStoerung') {
+  const element = document.getElementById('symbol-led3');
+  if (element) {
+    if (data.value == 0) {
+      element.classList.remove('active');
+    } else {
+      element.classList.add('active');
+    }
+  }
+}
+
+
   } catch (e) {
     console.error('Fehler beim Verarbeiten der Nachricht:', e);
   }
