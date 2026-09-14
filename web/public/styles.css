@@ -10,8 +10,11 @@
 html, body {
   width: 100%;
   height: 100%;
+  min-height: 75vh;
+  min-width: 50vw;
    font-family: roboto, sans-serif;
   background: linear-gradient(
+    
     90deg, 
     #020618 0%, 
     #0d1f46 40%, 
@@ -46,13 +49,13 @@ h2 {
    des Fensters ein.
    ========================================================== */
 .wrapper {
-  display: flex;          /* Container nebeneinander anordnen */
-  flex-shrink: 1;         /* Erlaubt dem Kasten, kleiner zu werden, wenn der Platz knapp wird */
-  min-height: 0;          /* Verhindert, dass der Kasten stur auf seiner Mindesthöhe beharrt */
+  display: flex;          
+  flex-shrink: 0;         
+  min-width: 960px;       /* Greift jetzt zuverlässig */
+   min-height: 670px;
   width: 100%;
-  height: 100vh;          /* volle Bildschirmhöhe */
-  overflow: hidden;        /* Verhindert, dass Scrollbalken entstehen */
-
+  height: 100%;           
+  overflow-x: auto;       /* Erlaubt horizontales Scrollen, falls das Fenster unter 960px rutscht */
 }
 
 /* ==========================================================
@@ -61,14 +64,21 @@ h2 {
    ========================================================== */
 .container {
   width: 50%;
+
   height: 100%;
   display: flex;
   flex-direction: column;  /* Unter-Container untereinander stapeln */
  
 }
 
+#container-links{
+min-width: 384px;
+gap: 15px;
+}
 
-
+#container-rechts{
+  min-width: 576px;
+}
 
 /* ==========================================================
    SUB-CONTAINER (Inhaltsbereiche)
@@ -92,24 +102,32 @@ h2 {
   justify-content: center;  
   align-items: center;   
   /* Flexibler Abstand: Passt sich der Bildschirmhöhe an, zwischen 15px und 25px */
-  gap: clamp(4rem, 4vw, 6em);     
+ gap: clamp(3.25rem, 6vw, 6.125rem);       
   margin-bottom: 2.5rem;  
 }
 
 /* Anordnung nebeneinander (Anzeigefeld rechts) */
 .sub-container3 {  
-  display: flex;
-  flex-direction: row;     
-  justify-content: center;  
-  align-items: flex-start;  /* Verhindert, dass das linke Matrix-Panel gestreckt wird! */
-  /* Flexibler Abstand: Passt sich der Bildschirmbreite an */
-  gap: clamp(2rem, 4vw, 6rem);               
+display: flex;
+  justify-content: space-evenly; /* Verteilt die Panels sauber mit gleichmäßigem Abstand */
+  align-items: flex-start;     
+  gap: 2rem;                 
   width: 100%;
   height: 100%;           
-  padding: 2.5rem 0;
+  padding: 2rem 1rem;
   border-left: 0.15rem solid #35d3f3;   
-   container-type: inline-size;    
+  min-width: 0;               
 
+}
+
+
+
+
+
+
+.led-group1, .led-group2, .matrix-panel, .rpm-panel {
+  width: 100%;             /* Nimmt den verfügbaren Platz ein */
+  max-width: 600px;        /* Erlaubt, dass sie deutlich breiter werden als vorher */
 }
 
 /* ==========================================================
@@ -179,6 +197,7 @@ h2 {
 .led-group1 {
     display: flex;
     flex-direction: column; 
+    width: clamp(220px, 20vw, 380px);
     gap: clamp(0.625rem, 2vh, 1.125rem); /* Flexibler vertikaler Abstand */
     background-color: #000000; 
     border-radius: 0.5rem;
@@ -189,7 +208,7 @@ h2 {
 .led-group1 h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem); /* Schriftgröße passt sich an */
+    font-size: clamp(1.8rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -203,8 +222,8 @@ h2 {
 
 .led-items1 .led {
     /* LEDs werden auf kleinen Bildschirmen etwas kleiner */
-    width: clamp(2rem, 5vw, 2.8125rem);
-    height: clamp(2rem, 5vw, 2.8125rem);
+  width: clamp(2.5rem, 3.5vw, 4rem);
+  height: clamp(2.5rem, 3.5vw, 4rem);
     border-radius: 50%;
     background-color: #586478; 
     border: 0.0625rem solid #1a1a1a;
@@ -242,6 +261,7 @@ h2 {
      display: flex;
      flex-direction: column;
      justify-content: space-between; 
+      gap: 15px;
      height: 100%;                  
      align-items: center;
 
@@ -251,36 +271,40 @@ h2 {
    BARGRAPH 4 LEDs
    ========================================================== */
 .led-group2 {
-  display: flex;
-    flex-direction: column;   
-    align-items: center;      
-    gap: clamp(0rem, 0vw, 0rem); /* Abstand zwischen Überschrift und LED-Reihe wächst mit */
-    background-color: #000000;
-    border-radius: 0.5rem;
-    border: 0.1875rem solid #5aeef1d7;
-    width: clamp(13rem, 13vw, 15rem);
-    min-width: 0;
-    padding: clamp(0.5rem, 2vw, 1.5rem); /* Optional: Auch der Innenabstand skaliert fließend */
-       
+ display: flex;
+  flex-direction: column;   
+  align-items: center;      
+  gap: 0.5rem; 
+  background-color: #000000;
+  border-radius: 0.5rem;
+  border: 0.1875rem solid #5aeef1d7;
+
+width: clamp(220px, 18vw, 250rem);
+  box-sizing: border-box;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
 }
 
 .led-container2 {
-    display: flex;
-    flex-direction: row;      
-    gap: clamp(0rem, 0.5vw, 2rem); /* HIER: Der Abstand zwischen den LEDs wächst dynamisch mit der Containergröße! */
-            
+ padding: 0.2rem;
+  display: flex;
+  flex-direction: row;      
+  /* HIER GEÄNDERT: Zentriert die LEDs absolut fehlerfrei unabhängig von der Bildschirmgröße */
+  justify-content: center; 
+  align-items: center;
+  gap: clamp(0.3rem, 1vw, 1.7rem); 
+  width: 100%;
+  box-sizing: border-box;
 }
-
 .led-group2 h1 {
-    margin: 0;
-    padding-bottom: 10px;;
-    font-family: sans-serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
-    font-weight: 700;
-    color: #f7f9fa;
-    text-align: center;
+  margin: 0;
+  padding-bottom: 12px;
+  font-family: sans-serif;
+  /* Die Überschrift skaliert auf großen Bildschirmen ebenfalls mit */
+  font-size: clamp(1.8rem, 2vw, 2.2rem);
+  font-weight: 700;
+  color: #f7f9fa;
+  text-align: center;
 }
-
 .led-group2 span {
     margin: 0;
     padding-top: 8px;
@@ -306,12 +330,13 @@ h2 {
 }
 
 .led {
-    width: clamp(2rem, 5vw, 2.8125rem);
-    height: clamp(2rem, 5vw, 2.8125rem);
-    border-radius: 50%;
-    background-color: #586478; 
-    border: 0.0625rem solid #1a1a1a;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  /* Die LEDs selbst dürfen auf großen Bildschirmen auch ein Stück mitwachsen, damit sie nicht winzig wirken */
+  width: clamp(2.5rem, 3.5vw, 4rem);
+  height: clamp(2.5rem, 3.5vw, 4rem);
+  border-radius: 50%;
+  background-color: #586478; 
+  border: 0.0625rem solid #1a1a1a;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .led.active {
@@ -337,7 +362,7 @@ h2 {
 .matrix-panel h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-size: clamp(1.8rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -418,7 +443,7 @@ h2 {
     margin: 0;
     padding-bottom: 15px;
     font-family: sans-serif;
-    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+     font-size: clamp(1.8rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -440,18 +465,4 @@ h2 {
 min-width: 6ch;   /* NEU: reserviert immer Platz für 4 Zeichen */
 }
 
-
-/* ==========================================================
-   MEDIA QUERIES (Für extreme Bildschirmgrößen)
-   ========================================================== */
-/* Wenn die Höhe des Bildschirms sehr klein ist, rücken wir alles zusammen */
-@media (max-height: 600px) {
-  .sub-container3 {
-    padding: 1rem 0;
-  }
-  .containerSum {
-    justify-content: center;
-    /* gap: 0.5rem; */
-  }
-}
 
