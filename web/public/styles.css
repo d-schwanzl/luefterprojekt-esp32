@@ -241,7 +241,7 @@ display: flex;
 
 #symbol-led1.active {
    background-color: #f87373;
-   box-shadow: 0 0 0.5rem #fc0101;, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+   box-shadow: 0 0 0.5rem #fc0101, 0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
 #symbol-led2.active {
@@ -279,7 +279,7 @@ display: flex;
   border-radius: 0.5rem;
   border: 0.1875rem solid #5aeef1d7;
 
-width: clamp(220px, 18vw, 250rem);
+width: clamp(220px, 18vw, 250px);
   box-sizing: border-box;
   padding: clamp(0.75rem, 2vw, 1.25rem);
 }
