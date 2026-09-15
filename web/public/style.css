@@ -1,6 +1,28 @@
-/* ==========================================================
-   BASIS EINSTELLUNGEN
-   ========================================================== */
+
+
+.dev-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  background: #ffcc00;
+  color: #000;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 2px solid #cc9900;
+  z-index: 9999;
+
+
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out; /* Weiche Ein-/Ausblend-Animation */
+}
+
+
+body:hover .dev-banner {
+  transform: translateY(-100%);
+}
 *{
   box-sizing: border-box;
   margin: 0;
@@ -41,6 +63,8 @@ html, body {
 
 
 h2 {
+    width: 55%;
+  min-width: 300px;
   margin: 0;
   width: 100%;                  /* Zwingt die Überschrift auf die volle Breite des Halb-Containers */
   color: rgb(0, 0, 0);
@@ -57,13 +81,7 @@ h2 {
 }
 
 
-
-/* ==========================================================
-   CONTAINER (linke & rechte Hälfte)
-   Beide je 50% Breite, 100% Höhe.
-   ========================================================== */
 .container {
-
 
   height: 100%;
   display: flex;
@@ -72,7 +90,7 @@ h2 {
 }
 
 .containerButtons {
-        flex: 1;   
+  flex: 1;   
   display: flex;          
   flex-direction: column;  
   justify-content: center;  
@@ -90,11 +108,14 @@ h2 {
     gap: clamp(3rem, 4vw, 5rem);  */
 }
 
-#container-rechts{
+#container-rechts {
   width: 55%;
   min-width: 300px;
 
 }
+
+
+
 
 /* ==========================================================
    SUB-CONTAINER (Inhaltsbereiche)
