@@ -32,11 +32,12 @@ html, body {
   display: flex;          
   width: 100vw;
   height: 100vh;
-  min-width: 960px;       /* Greift jetzt zuverlässig */
-  min-height: 670px;
-  overflow-x: auto;       /* Erlaubt horizontales Scrollen */
+  min-width: 490px;
+  min-height: 218px;
+  overflow-x: auto;
   overflow-y: auto;
 }
+
 
 
 h2 {
@@ -62,7 +63,7 @@ h2 {
    Beide je 50% Breite, 100% Höhe.
    ========================================================== */
 .container {
-  width: 50%;
+
 
   height: 100%;
   display: flex;
@@ -70,13 +71,29 @@ h2 {
  
 }
 
+.containerButtons {
+        flex: 1;   
+  display: flex;          
+  flex-direction: column;  
+  justify-content: center;  
+  align-items: center;    
+ gap: clamp(1rem, 1vw, 2rem);  
+  padding: 0.5rem 0.5rem;
+  
+}
+
+
 #container-links{
-min-width: 384px;
-gap: 15px;
+  width: 45%;
+  min-width: 196px;
+  /* gap: 15px;
+    gap: clamp(3rem, 4vw, 5rem);  */
 }
 
 #container-rechts{
-  min-width: 576px;
+  width: 55%;
+  min-width: 300px;
+
 }
 
 /* ==========================================================
@@ -90,7 +107,7 @@ gap: 15px;
   justify-content: center;  
   align-items: center;   
   /* Flexibler Abstand: Passt sich der Bildschirmbreite an, zwischen 20px und 50px */
-  gap: clamp(3.25rem, 6vw, 6.125rem);      
+  gap: clamp(2rem, 4vw, 6rem);      
 }
 
 /* Taster Anordnung untereinander (Bedienfeld unten) */
@@ -101,8 +118,10 @@ gap: 15px;
   justify-content: center;  
   align-items: center;   
   /* Flexibler Abstand: Passt sich der Bildschirmhöhe an, zwischen 15px und 25px */
- gap: clamp(3.25rem, 6vw, 6.125rem);       
-  margin-bottom: 2.5rem;  
+ gap: clamp(4rem, 1vw, 3rem);  
+
+
+  /* margin-top: 2.5rem;  */
 }
 
 /* Anordnung nebeneinander (Anzeigefeld rechts) */
@@ -134,22 +153,20 @@ display: flex;
    ========================================================== */
 .taster {
 
+  container-type: inline-size;
+  container-name: taster;
+
   aspect-ratio: 1 / 1;
- width: 10rem; 
+  width: clamp(8rem, 10vw, 10rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  
   border: 0.1875rem solid #5aeef1d7;
   border-radius: 1.25rem;
   background: radial-gradient(circle at center, #111118 0%, #000000 100%);
-  /* color: #5aeef1; Heller für besseren Kontrast */ 
   cursor: pointer;
-  
-  /* Statische Tiefe und Leuchten */
-  box-shadow: 0 10px 10px rgba(234, 228, 228, 0.5), 
+  box-shadow: 0 10px 10px rgba(234, 228, 228, 0.5),
               0 0 12px rgba(90, 238, 241, 0.2);
-
 
 }
 
@@ -163,30 +180,26 @@ display: flex;
 }
 
 .taster--ein {
-   font-weight: 780;
-  font-size: 2.9rem;
+  font-weight: 780;
+  font-size: clamp(2.5rem, 4vw, 4rem);
   color: #06ff8b;
 }
 
 .taster--aus {
-   font-weight: 780;
-  font-size: 2.9rem;
-
+  font-weight: 780;
+  font-size: clamp(2.5rem, 4vw, 4rem);
   color: rgb(234, 58, 58);
 }
 
 .taster--hoch {
-
   font-weight: 550;
-   font-size: 1.9rem;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   color: #0088ff;
 }
 
 .taster--runter {
-
-
   font-weight: 550;
-   font-size: 1.9rem;
+ font-size: clamp(1.6rem, 2.8vw, 2.2rem);
   color: #0088ff;
 }
 
@@ -196,18 +209,18 @@ display: flex;
 .led-group1 {
     display: flex;
     flex-direction: column; 
-    width: clamp(220px, 20vw, 380px);
+    width: clamp(180px, 20vw, 380px);
     gap: clamp(0.625rem, 2vh, 1.125rem); /* Flexibler vertikaler Abstand */
     background-color: #000000; 
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 1.9vw, 1.25rem); /* Flexibles Padding */
+    padding: clamp(0.4rem, 1vw, 0.8rem); /* Flexibles Padding */
 }
 
 .led-group1 h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: clamp(1.8rem, 2vw, 2.2rem);
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -260,7 +273,7 @@ display: flex;
      display: flex;
      flex-direction: column;
      justify-content: space-between; 
-      gap: 15px;
+      gap: 10px;
      height: 100%;                  
      align-items: center;
 
@@ -278,28 +291,28 @@ display: flex;
   border-radius: 0.5rem;
   border: 0.1875rem solid #5aeef1d7;
 
-width: clamp(220px, 18vw, 330px);
+width: clamp(200px, 18vw, 330px);
   box-sizing: border-box;
-  padding: clamp(0.75rem, 2vw, 1.25rem);
+  padding: clamp(0.4rem, 2vw, 1rem);
 }
 
 .led-container2 {
- padding: 0.2rem;
+ padding: 0.4rem;
   display: flex;
   flex-direction: row;      
   /* HIER GEÄNDERT: Zentriert die LEDs absolut fehlerfrei unabhängig von der Bildschirmgröße */
   justify-content: center; 
   align-items: center;
-  gap: clamp(0.3rem, 1vw, 1.7rem); 
+  gap: clamp(0.2rem, 0.7vw, 1rem); 
   width: 100%;
   box-sizing: border-box;
 }
 .led-group2 h1 {
   margin: 0;
-  padding-bottom: 12px;
+  padding-bottom: 10px;
   font-family: sans-serif;
   /* Die Überschrift skaliert auf großen Bildschirmen ebenfalls mit */
-  font-size: clamp(1.8rem, 2vw, 2.2rem);
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
   font-weight: 700;
   color: #f7f9fa;
   text-align: center;
@@ -354,14 +367,14 @@ width: clamp(220px, 18vw, 330px);
     background-color: #000000;
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vw, 1.25rem);
+    padding: clamp(0.75rem, 2vw, 1rem);
       
 }
 
 .matrix-panel h1 {
     margin: 0;
     font-family: sans-serif;
-    font-size: clamp(1.8rem, 2vw, 2.2rem);
+   font-size: clamp(1.5rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -434,7 +447,7 @@ width: clamp(220px, 18vw, 330px);
     background-color: #000000;
     border-radius: 0.5rem;
     border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vh, 1.25rem);
+    padding: clamp(0.75rem, 1vh, 1rem);
     
 }
 
@@ -442,7 +455,7 @@ width: clamp(220px, 18vw, 330px);
     margin: 0;
     padding-bottom: 15px;
     font-family: sans-serif;
-     font-size: clamp(1.8rem, 2vw, 2.2rem);
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
     font-weight: 700;
     color: #f7f9fa;
     text-align: center;
@@ -458,7 +471,7 @@ width: clamp(220px, 18vw, 330px);
   letter-spacing: 0.125rem;
   text-align: center;
   box-shadow: inset 0 0 0.5rem rgba(0, 216, 255, 0.3);
-  padding: 0.625rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);
 min-width: 6ch;   /* NEU: reserviert immer Platz für 4 Zeichen */
