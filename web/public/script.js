@@ -118,12 +118,19 @@ if (data.type === 'LedLuefterStoerung') {
   const element = document.getElementById('symbol-led3');
   if (element) {
     if (data.value == 0) {
-      element.classList.remove('active');
+      element.classList.remove('blinking');
     } else {
-      element.classList.add('active');
+      element.classList.add('blinking');
     }
   }
 }
+
+
+
+
+
+
+
 
 
   } catch (e) {
