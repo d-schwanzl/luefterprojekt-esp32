@@ -1,55 +1,56 @@
+//README ist noch nicht fertig!
+
 # ESP32-H2 Lüftersteuerung
 
 Steuerung und Überwachung eines PWM-Lüfters mit Drehzahlrückmeldung (Tachosignal von Lüfter)
 4 Geschwindigkeitsstufen + eine Ausschaltstufe
--------------------------------------------------------------------------------------------------------------
+
+---
+
 Eingaben
 
 4 Taster:
 AN,AUS-Taster:
-* Lüfter ausschalten/einschalten
 
-* Drehzahl-hoch-Taster:
-    Drehzahl um eine Stufe erhöhen
-* Drehzahl-runter-Taster
-    Drehzahl um eine Stufe vermindern
+- Lüfter ausschalten/einschalten
 
--------------------------------------------------------------------------------------------------------------
+- Drehzahl-hoch-Taster:
+  Drehzahl um eine Stufe erhöhen
+- Drehzahl-runter-Taster
+  Drehzahl um eine Stufe vermindern
+
+---
+
 Anzeigeelemente
 
-* Lüfter AN, Lüfter AUS, Lüfter STÖRUNG:
-    Lüfter AN -> LED Grün leuchtet auf
-    Lüfter AUS -> LED ROT leuchtet auf
-    Lüfter STÖRUNG -> LED Gelb pulsiert 1Hz
+- Lüfter AN, Lüfter AUS, Lüfter STÖRUNG:
+  Lüfter AN -> LED Grün leuchtet auf
+  Lüfter AUS -> LED ROT leuchtet auf
+  Lüfter STÖRUNG -> LED Gelb pulsiert 1Hz
 
-* Drehzahl-Äquivalent
-    Drehzahl-Äquivalent:  Echtzeitanzeige: Siebensegment: 0-9
+- Drehzahl-Äquivalent
+  Drehzahl-Äquivalent: Echtzeitanzeige: Siebensegment: 0-9
 
-* PWM-Stufe mit Balkenanzeige
-    PWM-Stufe mit Balkenanzeige: LED Bargraf mit 4 grünen LEDs: Zeigen die PWM-Stufe an
-
-
-
+- PWM-Stufe mit Balkenanzeige
+  PWM-Stufe mit Balkenanzeige: LED Bargraf mit 4 grünen LEDs: Zeigen die PWM-Stufe an
 
 ## Hardware & Komponenten
-* **Microcontroller:** ESP32-H2-DevKitM-1
-* **Anzeige:** 7-Segment / Balkenanzeige über Schieberegister (74HC595)
-* **Status-LEDs:** Betrieb (EIN), AUS, Störung
-* **Eingaben:** Taster für EIN, AUS, PWM Hochschalten, PWM Runterschalten
 
-
-
-
-
+- **Microcontroller:** ESP32-H2-DevKitM-1
+- **Anzeige:** 7-Segment / Balkenanzeige über Schieberegister (74HC595)
+- **Status-LEDs:** Betrieb (EIN), AUS, Störung
+- **Eingaben:** Taster für EIN, AUS, PWM Hochschalten, PWM Runterschalten
 
 ## Projektstruktur
-* `src/main.cpp` – Hauptschleife (State Machine, PWM-Regelung, Tasterverarbeitung)
-* `src/DisplayController.cpp/.h` – Ansteuerung der Schieberegister & Anzeigen
-* `src/GatewaySerial.cpp/.h` – Serielle Schnittstelle für Befehle (JSON-Format)
-* `src/TachoStage.cpp/.h` – Drehzahlmessung & Auswertung der Lüfterstufen
-* `src/PinMap.h` – Zentrale Pin-Belegung des ESP32-H2
+
+- `src/main.cpp` – Hauptschleife (State Machine, PWM-Regelung, Tasterverarbeitung)
+- `src/DisplayController.cpp/.h` – Ansteuerung der Schieberegister & Anzeigen
+- `src/GatewaySerial.cpp/.h` – Serielle Schnittstelle für Befehle (JSON-Format)
+- `src/TachoStage.cpp/.h` – Drehzahlmessung & Auswertung der Lüfterstufen
+- `src/PinMap.h` – Zentrale Pin-Belegung des ESP32-H2
 
 ## Entwicklungsumgebung
-* **IDE:** VS Code mit PlatformIO Extension
-* **Framework:** Arduino (via pioarduino platform)
-* **Bibliotheken:** `ArduinoJson`
+
+- **IDE:** VS Code mit PlatformIO Extension
+- **Framework:** Arduino (via pioarduino platform)
+- **Bibliotheken:** `ArduinoJson`

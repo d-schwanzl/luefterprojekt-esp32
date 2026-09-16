@@ -1,12 +1,8 @@
-
-
-
-
 /* Verhindert Textmarkierung */
 * {
   user-select: none;
 }
-
+/* Vorübergehend eingeführt, zur Kennzeichung */
 .dev-banner {
   position: fixed;
   top: 0;
@@ -20,22 +16,21 @@
   font-weight: bold;
   z-index: 9999;
 
-
   transform: translateY(0);
-  transition: transform 0.8s ease-in-out; /* Weiche Ein-/Ausblend-Animation */
+  transition: transform 0.8s ease-in-out;
 }
-
 
 body:hover .dev-banner {
   transform: translateY(-100%);
 }
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100vh;
   margin: 0;
@@ -44,20 +39,20 @@ html, body {
   overflow-y: auto;
   font-family: roboto, sans-serif;
   background: linear-gradient(
-    90deg, 
-    #020618 0%, 
-    #0d1f46 40%, 
-    #0d204a 50%, 
-    #0d1f46 60%, 
+    90deg,
+    #020618 0%,
+    #0d1f46 40%,
+    #0d204a 50%,
+    #0d1f46 60%,
     #020618 100%
   );
 }
 
 /* ==========================================================
-   WRAPPER
+   WRAPPER: Umschließt den ganzen Body
    ========================================================== */
 .wrapper {
-  display: flex;          
+  display: flex;
   width: 100vw;
   height: 100vh;
   min-width: 490px;
@@ -66,128 +61,58 @@ html, body {
   overflow-y: auto;
 }
 
-
-
 .container h2 {
   width: 55%;
   /* min-width: 300px; */
   margin: 0;
-  width: 100%;                  /* Zwingt die Überschrift auf die volle Breite des Halb-Containers */
+  width: 100%;
   color: rgb(0, 0, 0);
-  /* Dynamische Schriftgröße: Zwischen 32px (2rem) und 65px (4.0625rem) je nach Bildschirmbreite */
+
   font-size: clamp(2rem, 5vw, 4.0625rem);
-  letter-spacing: 0.125rem;          /* Abstand zwischen den Buchstaben */
-  text-transform: uppercase;    /* Wandelt Text in GROSSBUCHSTABEN um */
+  letter-spacing: 0.125rem;
+  text-transform: uppercase;
   font-weight: 800;
   text-align: center;
-  padding: 0.625rem 0;              /* Gibt dem Text im Balken etwas Luft nach oben und unten */
-  background: #0ea0a0;        /* Deine eigene Hintergrundfarbe für die Überschrift */
-  border-bottom:  0.15rem solid #35d3f3; 
-  
+  padding: 0.625rem 0;
+  background: #0ea0a0;
+  border-bottom: 0.15rem solid #35d3f3;
 }
 
 #h2Anzeigefeld {
-min-width: 420px;
+  min-width: 420px;
 }
 
 .container {
-
-
   display: flex;
-  flex-direction: column;  /* Unter-Container untereinander stapeln */
- 
+  flex-direction: column;
 }
 
-.containerButtons {
-  flex: 1;   
-  display: flex;          
-  flex-direction: column;  
-  justify-content: center;  
-  align-items: center;    
- gap: clamp(1.5rem, 2vw, 2rem);  
-  padding: 1.5rem 1.5rem;
-      border-right: 0.15rem solid #35d3f3;
-
-  
-}
-
-
-#container-links{
+#container-links {
   width: 45%;
   min-width: 196px;
-  /* gap: 15px;
-    gap: clamp(3rem, 4vw, 5rem);  */
 }
 
 #container-rechts {
   width: 55%;
   min-width: 300px;
-
-
-}
-
-
-
-
-/* ==========================================================
-   SUB-CONTAINER (Inhaltsbereiche)
-   ========================================================== */
-/* Taster Anordnung nebeneinander (Bedienfeld oben) */
-.sub-container1 {           
-  flex: 1;        
-  display: flex;          
-  flex-direction: row;  
-  justify-content: center;  
-  align-items: center;   
-  /* Flexibler Abstand: Passt sich der Bildschirmbreite an, zwischen 20px und 50px */
-  gap: clamp(2rem, 4vw, 6rem);      
-}
-
-/* Taster Anordnung untereinander (Bedienfeld unten) */
-.sub-container2 {           
-  flex: 1;   
-  display: flex;          
-  flex-direction: column;  
-  justify-content: center;  
-  align-items: center;   
-  /* Flexibler Abstand: Passt sich der Bildschirmhöhe an, zwischen 15px und 25px */
- gap: clamp(3rem, 1vw, 3rem);  
-
-
-  /* margin-top: 2.5rem;  */
-}
-
-
-
-/* Anordnung nebeneinander (Anzeigefeld rechts) */
-.sub-container3 {  
-display: flex;
-  justify-content: space-evenly; /* Verteilt die Panels sauber mit gleichmäßigem Abstand */
-  align-items: flex-start;     
-  gap: 2rem;                 
-  width: 100%;
-  height: 100%;
-  padding: 1.5rem 1rem;
-
-  min-width: 0;               
-
-}
-
-
-
-
-
-
-.led-group1, .led-group2, .matrix-panel, .rpm-panel {
-  width: 100%;             /* Nimmt den verfügbaren Platz ein */
-  max-width: 600px;        /* Erlaubt, dass sie deutlich breiter werden als vorher */
 }
 
 /* ==========================================================
-   ELEMENTE VON BEDIENFELD (Taster)
+  Linker Container(Buttons)
    ========================================================== */
+
+.containerButtons {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(1.5rem, 2vw, 2rem);
+  padding: 1.5rem 1.5rem;
+  border-right: 0.15rem solid #35d3f3;
+}
+
 .taster {
-
   container-type: inline-size;
   container-name: taster;
 
@@ -200,18 +125,17 @@ display: flex;
   border-radius: 1.25rem;
   background: radial-gradient(circle at center, #111118 0%, #000000 100%);
   cursor: pointer;
-  box-shadow: 0 10px 10px rgba(234, 228, 228, 0.5),
-              0 0 12px rgba(90, 238, 241, 0.2);
-
+  box-shadow:
+    0 10px 10px rgba(234, 228, 228, 0.5),
+    0 0 12px rgba(90, 238, 241, 0.2);
 }
 
-
 .taster:hover {
-   filter: brightness(2);
+  filter: brightness(2);
 }
 
 .taster:active {
-  transform: translateY(0.225rem);   /* kleiner "Klick"-Effekt beim Drücken */
+  transform: translateY(0.225rem);
 }
 
 .taster--ein {
@@ -234,126 +158,163 @@ display: flex;
 
 .taster--runter {
   font-weight: 550;
- font-size: clamp(1.6rem, 2vw, 2.2rem);
+  font-size: clamp(1.6rem, 2vw, 2.2rem);
   color: #0088ff;
 }
 
+/* Taster Anordnung nebeneinander (Bedienfeld oben) */
+.sub-container1 {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 6rem);
+}
+
+/* Taster Anordnung untereinander (Bedienfeld unten) */
+.sub-container2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: clamp(3rem, 1vw, 3rem);
+}
+
 /* ==========================================================
-   LED STATUSANZEIGE
+  Rechter Container (Anzeigepannels)
    ========================================================== */
+
+/* Anordnung nebeneinander (Anzeigefeld rechts) */
+.sub-container3 {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 1rem;
+  min-width: 0;
+}
+
+.led-group1,
+.led-group2,
+.matrix-panel,
+.rpm-panel {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* LED STATUSANZEIGE */
 .led-group1 {
-    display: flex;
-    flex-direction: column; 
-    width: clamp(180px, 20vw, 380px);
-    gap: clamp(0.625rem, 2vh, 1.125rem); /* Flexibler vertikaler Abstand */
-    background-color: #000000; 
-    border-radius: 0.5rem;
-    border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.4rem, 1vw, 0.8rem); /* Flexibles Padding */
+  display: flex;
+  flex-direction: column;
+  width: clamp(180px, 20vw, 380px);
+  gap: clamp(0.625rem, 2vh, 1.125rem); /* Flexibler vertikaler Abstand */
+  background-color: #000000;
+  border-radius: 0.5rem;
+  border: 0.1875rem solid #5aeef1d7;
+  padding: clamp(0.4rem, 1vw, 0.8rem); /* Flexibles Padding */
 }
 
 .led-group1 h1 {
-    margin: 0;
-    font-family: sans-serif;
-    font-size: clamp(1.5rem, 2vw, 2.2rem);
-    font-weight: 700;
-    color: #f7f9fa;
-    text-align: center;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  font-weight: 700;
+  color: #f7f9fa;
+  text-align: center;
 }
 
 .led-items1 {
-    display: flex;
-    align-items: center;    
-    gap: 0.75rem;              
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .led-items1 .led {
-    /* LEDs werden auf kleinen Bildschirmen etwas kleiner */
   width: clamp(2.5rem, 3.5vw, 4rem);
   height: clamp(2.5rem, 3.5vw, 4rem);
-    border-radius: 50%;
-    background-color: #586478; 
-    border: 0.0625rem solid #1a1a1a;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 50%;
+  background-color: #586478;
+  border: 0.0625rem solid #1a1a1a;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .led-label1 {
-    margin: 0;
-    font-family: sans-serif;
-    font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
-    color: #efeff9cd;
-    text-align: center;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
+  color: #efeff9cd;
+  text-align: center;
 }
 
-
 #symbol-led1.active {
-   background-color: #f87373;
-   box-shadow: 0 0 0.5rem #fc0101, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+  background-color: #f87373;
+  box-shadow:
+    0 0 0.5rem #fc0101,
+    0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
 #symbol-led2.active {
-   background-color: #71f6a6; 
-   box-shadow: 0 0 0.5rem #00ff66, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+  background-color: #71f6a6;
+  box-shadow:
+    0 0 0.5rem #00ff66,
+    0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
 #symbol-led3.blinking {
-animation: farbBlinker 0.5s infinite alternate ease-in-out;
+  animation: farbBlinker 0.5s infinite alternate ease-in-out;
 }
 
-
-/* Die Animation: Wechselt z.B. zwischen Dunkelgrau und hellem Gelb*/
+/* Blinken der LED:Störung */
 @keyframes farbBlinker {
   0% {
     background-color: #3a3a3a;
     box-shadow: none;
   }
   100% {
-
-  background-color: #fbff00;
-  box-shadow: 0 0 10px #ffcc00;
+    background-color: #fbff00;
+    box-shadow: 0 0 10px #ffcc00;
   }
 }
 
-  
-
-/* ==========================================================
-   Container Bargraph und Container Matrixanzeige RPM-Anzeige zusammenfassen
-   ========================================================== */
+/* Container Bargraph und Container Matrixanzeige Container RPM-Anzeige zusammenfassen */
 .containerSum {
-     display: flex;
-     flex-direction: column;
-     justify-content: space-between; 
-      gap: 10px;
-     height: 100%;                  
-     align-items: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  height: 100%;
+  align-items: center;
 }
 
-/* ==========================================================
-   BARGRAPH 4 LEDs
-   ========================================================== */
+/* BARGRAPH 4 LEDs */
 .led-group2 {
- display: flex;
-  flex-direction: column;   
-  align-items: center;      
-  gap: 0.5rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
   background-color: #000000;
   border-radius: 0.5rem;
   border: 0.1875rem solid #5aeef1d7;
-
-width: clamp(200px, 18vw, 330px);
+  width: clamp(200px, 18vw, 330px);
   box-sizing: border-box;
   padding: clamp(0.4rem, 2vw, 1rem);
 }
 
 .led-container2 {
- padding: 0.4rem;
+  padding: 0.4rem;
   display: flex;
-  flex-direction: row;      
+  flex-direction: row;
   /* HIER GEÄNDERT: Zentriert die LEDs absolut fehlerfrei unabhängig von der Bildschirmgröße */
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
-  gap: clamp(0.2rem, 0.7vw, 1rem); 
+  gap: clamp(0.2rem, 0.7vw, 1rem);
   width: 100%;
   box-sizing: border-box;
 }
@@ -368,152 +329,319 @@ width: clamp(200px, 18vw, 330px);
   text-align: center;
 }
 .led-group2 span {
-    margin: 0;
-    padding-top: 8px;
-    font-family: sans-serif;
-    font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
-    color: #efeff9cd;
-    text-align: center;
+  margin: 0;
+  padding-top: 8px;
+  font-family: sans-serif;
+  font-size: clamp(1.125rem, 2.2vw, 1.5625rem);
+  color: #efeff9cd;
+  text-align: center;
 }
 
 .led-wrapper {
-    display: flex;
-    flex-direction: column;   
-    align-items: center;      
-   
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .led-label {
-    color: #444;
-    font-family: monospace;
-    font-size: 0.8125rem;
-    font-weight: bold;
-    letter-spacing: 0.0313rem;
+  color: #444;
+  font-family: monospace;
+  font-size: 0.8125rem;
+  font-weight: bold;
+  letter-spacing: 0.0313rem;
 }
 
 .led {
-  /* Die LEDs selbst dürfen auf großen Bildschirmen auch ein Stück mitwachsen, damit sie nicht winzig wirken */
   width: clamp(2.5rem, 3.5vw, 4rem);
   height: clamp(2.5rem, 3.5vw, 4rem);
   border-radius: 50%;
-  background-color: #586478; 
+  background-color: #586478;
   border: 0.0625rem solid #1a1a1a;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .led.active {
-    background-color: #68f6a1; 
-    box-shadow: 0 0 0.5rem #00ff66, 0 0 0.875rem rgba(0, 255, 102, 0.5);
+  background-color: #68f6a1;
+  box-shadow:
+    0 0 0.5rem #00ff66,
+    0 0 0.875rem rgba(0, 255, 102, 0.5);
 }
 
-/* ==========================================================
-   MATRIX ANZEIGE (4x9 Raster)
-   ========================================================== */
+/* MATRIX ANZEIGE (4x9 Raster) */
 .matrix-panel {
-    display: flex;
-    flex-direction: column;   
-    align-items: center;      
-    gap: clamp(0.5rem, 1.5vw, 0.9375rem);               
-    background-color: #000000;
-    border-radius: 0.5rem;
-    border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 2vw, 1rem);
-      
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 0.9375rem);
+  background-color: #000000;
+  border-radius: 0.5rem;
+  border: 0.1875rem solid #5aeef1d7;
+  padding: clamp(0.75rem, 2vw, 1rem);
 }
 
 .matrix-panel h1 {
-    margin: 0;
-    font-family: sans-serif;
-   font-size: clamp(1.5rem, 2vw, 2.2rem);
-    font-weight: 700;
-    color: #f7f9fa;
-    text-align: center;
+  margin: 0;
+  font-family: sans-serif;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  font-weight: 700;
+  color: #f7f9fa;
+  text-align: center;
 }
 
 .matrix-display {
-    display: grid;
-    /* Damit die Matrix auf kleinen Bildschirmen nicht bricht, nutzen wir hier mitschrumpfende rem-Werte */
-    grid-template-columns: repeat(4, clamp(0.4rem, 1vw, 0.625rem)); 
-    grid-template-rows: repeat(9, clamp(0.35rem, 0.9vw, 0.5rem));    
-   
-    padding: clamp(0.5rem, 1.5vh, 1rem);
-    background-color: #000000;
-    border-radius: 0.5rem;
-    width: fit-content;
-    border: 0.125rem solid #1f2937; 
-    box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);  
+  display: grid;
+  grid-template-columns: repeat(4, clamp(0.4rem, 1vw, 0.625rem));
+  grid-template-rows: repeat(9, clamp(0.35rem, 0.9vw, 0.5rem));
+
+  padding: clamp(0.5rem, 1.5vh, 1rem);
+  background-color: #000000;
+  border-radius: 0.5rem;
+  width: fit-content;
+  border: 0.125rem solid #1f2937;
+  box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);
 }
 
 .pixel {
-    background-color: #000000; 
-    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  background-color: #000000;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .pixel.active {
-    background-color: #72f0ff; 
-    box-shadow: 
-        0 0 0.1875rem #00d8ff,                   
-        0 0 0.5rem #0088ff,                   
-        0 0 1.125rem rgba(0, 136, 255, 0.9),   
-        inset 0 0 0.125rem #ffffff;            
-    border-color: #a6f5ff;
+  background-color: #72f0ff;
+  box-shadow:
+    0 0 0.1875rem #00d8ff,
+    0 0 0.5rem #0088ff,
+    0 0 1.125rem rgba(0, 136, 255, 0.9),
+    inset 0 0 0.125rem #ffffff;
+  border-color: #a6f5ff;
 }
 
 .matrix-display > div {
-    background-color: #000000; 
-    border-radius: 0.125rem;
-    border: 0.0625rem solid #061024;
-    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  background-color: #000000;
+  border-radius: 0.125rem;
+  border: 0.0625rem solid #061024;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 /* --- AKTIVE PIXEL MATRIX-LOGIK --- */
-.n0 #p1, .n0 #p2, .n0 #p3, .n0 #p4, .n0 #p5, .n0 #p8, .n0 #p9, .n0 #p12, .n0 #p13, .n0 #p16, .n0 #p17, .n0 #p20, .n0 #p21, .n0 #p24, .n0 #p25, .n0 #p28, .n0 #p29, .n0 #p32, .n0 #p33, .n0 #p34, .n0 #p35, .n0 #p36,
-.n1 #p4, .n1 #p8, .n1 #p12, .n1 #p16, .n1 #p20, .n1 #p24, .n1 #p28, .n1 #p32, .n1 #p36,
-.n2 #p1, .n2 #p2, .n2 #p3, .n2 #p4, .n2 #p8, .n2 #p12, .n2 #p16, .n2 #p17, .n2 #p18, .n2 #p19, .n2 #p20, .n2 #p21, .n2 #p25, .n2 #p29, .n2 #p33, .n2 #p34, .n2 #p35, .n2 #p36,
-.n3 #p1, .n3 #p2, .n3 #p3, .n3 #p4, .n3 #p8, .n3 #p12, .n3 #p16, .n3 #p17, .n3 #p18, .n3 #p19, .n3 #p20, .n3 #p24, .n3 #p28, .n3 #p32, .n3 #p33, .n3 #p34, .n3 #p35, .n3 #p36,
-.n4 #p1, .n4 #p4, .n4 #p5, .n4 #p8, .n4 #p9, .n4 #p12, .n4 #p13, .n4 #p16, .n4 #p17, .n4 #p18, .n4 #p19, .n4 #p20, .n4 #p24, .n4 #p28, .n4 #p32, .n4 #p36,
-.n5 #p1, .n5 #p2, .n5 #p3, .n5 #p4, .n5 #p5, .n5 #p9, .n5 #p13, .n5 #p17, .n5 #p18, .n5 #p19, .n5 #p20, .n5 #p24, .n5 #p28, .n5 #p32, .n5 #p33, .n5 #p34, .n5 #p35, .n5 #p36,
-.n6 #p1, .n6 #p2, .n6 #p3, .n6 #p4, .n6 #p5, .n6 #p9, .n6 #p13, .n6 #p17, .n6 #p18, .n6 #p19, .n6 #p20, .n6 #p21, .n6 #p24, .n6 #p25, .n6 #p28, .n6 #p29, .n6 #p32, .n6 #p33, .n6 #p34, .n6 #p35, .n6 #p36,
-.n7 #p1, .n7 #p2, .n7 #p3, .n7 #p4, .n7 #p8, .n7 #p12, .n7 #p16, .n7 #p20, .n7 #p24, .n7 #p28, .n7 #p32, .n7 #p36,
-.n8 #p1, .n8 #p2, .n8 #p3, .n8 #p4, .n8 #p5, .n8 #p8, .n8 #p9, .n8 #p12, .n8 #p13, .n8 #p16, .n8 #p17, .n8 #p18, .n8 #p19, .n8 #p20, .n8 #p21, .n8 #p24, .n8 #p25, .n8 #p28, .n8 #p29, .n8 #p32, .n8 #p33, .n8 #p34, .n8 #p35, .n8 #p36,
-.n9 #p1, .n9 #p2, .n9 #p3, .n9 #p4, .n9 #p5, .n9 #p8, .n9 #p9, .n9 #p12, .n9 #p13, .n9 #p16, .n9 #p17, .n9 #p18, .n9 #p19, .n9 #p20, .n9 #p24, .n9 #p28, .n9 #p32, .n9 #p33, .n9 #p34, .n9 #p35, .n9 #p36 {
-    background-color: #72f0ff; 
-    border-color: #a6f5ff;
-    box-shadow: 
-        0 0 0.1875rem #00d8ff,                   
-        0 0 0.5rem #0088ff,                   
-        0 0 1.125rem rgba(0, 136, 255, 0.9),   
-        inset 0 0 0.125rem #ffffff;            
+.n0 #p1,
+.n0 #p2,
+.n0 #p3,
+.n0 #p4,
+.n0 #p5,
+.n0 #p8,
+.n0 #p9,
+.n0 #p12,
+.n0 #p13,
+.n0 #p16,
+.n0 #p17,
+.n0 #p20,
+.n0 #p21,
+.n0 #p24,
+.n0 #p25,
+.n0 #p28,
+.n0 #p29,
+.n0 #p32,
+.n0 #p33,
+.n0 #p34,
+.n0 #p35,
+.n0 #p36,
+.n1 #p4,
+.n1 #p8,
+.n1 #p12,
+.n1 #p16,
+.n1 #p20,
+.n1 #p24,
+.n1 #p28,
+.n1 #p32,
+.n1 #p36,
+.n2 #p1,
+.n2 #p2,
+.n2 #p3,
+.n2 #p4,
+.n2 #p8,
+.n2 #p12,
+.n2 #p16,
+.n2 #p17,
+.n2 #p18,
+.n2 #p19,
+.n2 #p20,
+.n2 #p21,
+.n2 #p25,
+.n2 #p29,
+.n2 #p33,
+.n2 #p34,
+.n2 #p35,
+.n2 #p36,
+.n3 #p1,
+.n3 #p2,
+.n3 #p3,
+.n3 #p4,
+.n3 #p8,
+.n3 #p12,
+.n3 #p16,
+.n3 #p17,
+.n3 #p18,
+.n3 #p19,
+.n3 #p20,
+.n3 #p24,
+.n3 #p28,
+.n3 #p32,
+.n3 #p33,
+.n3 #p34,
+.n3 #p35,
+.n3 #p36,
+.n4 #p1,
+.n4 #p4,
+.n4 #p5,
+.n4 #p8,
+.n4 #p9,
+.n4 #p12,
+.n4 #p13,
+.n4 #p16,
+.n4 #p17,
+.n4 #p18,
+.n4 #p19,
+.n4 #p20,
+.n4 #p24,
+.n4 #p28,
+.n4 #p32,
+.n4 #p36,
+.n5 #p1,
+.n5 #p2,
+.n5 #p3,
+.n5 #p4,
+.n5 #p5,
+.n5 #p9,
+.n5 #p13,
+.n5 #p17,
+.n5 #p18,
+.n5 #p19,
+.n5 #p20,
+.n5 #p24,
+.n5 #p28,
+.n5 #p32,
+.n5 #p33,
+.n5 #p34,
+.n5 #p35,
+.n5 #p36,
+.n6 #p1,
+.n6 #p2,
+.n6 #p3,
+.n6 #p4,
+.n6 #p5,
+.n6 #p9,
+.n6 #p13,
+.n6 #p17,
+.n6 #p18,
+.n6 #p19,
+.n6 #p20,
+.n6 #p21,
+.n6 #p24,
+.n6 #p25,
+.n6 #p28,
+.n6 #p29,
+.n6 #p32,
+.n6 #p33,
+.n6 #p34,
+.n6 #p35,
+.n6 #p36,
+.n7 #p1,
+.n7 #p2,
+.n7 #p3,
+.n7 #p4,
+.n7 #p8,
+.n7 #p12,
+.n7 #p16,
+.n7 #p20,
+.n7 #p24,
+.n7 #p28,
+.n7 #p32,
+.n7 #p36,
+.n8 #p1,
+.n8 #p2,
+.n8 #p3,
+.n8 #p4,
+.n8 #p5,
+.n8 #p8,
+.n8 #p9,
+.n8 #p12,
+.n8 #p13,
+.n8 #p16,
+.n8 #p17,
+.n8 #p18,
+.n8 #p19,
+.n8 #p20,
+.n8 #p21,
+.n8 #p24,
+.n8 #p25,
+.n8 #p28,
+.n8 #p29,
+.n8 #p32,
+.n8 #p33,
+.n8 #p34,
+.n8 #p35,
+.n8 #p36,
+.n9 #p1,
+.n9 #p2,
+.n9 #p3,
+.n9 #p4,
+.n9 #p5,
+.n9 #p8,
+.n9 #p9,
+.n9 #p12,
+.n9 #p13,
+.n9 #p16,
+.n9 #p17,
+.n9 #p18,
+.n9 #p19,
+.n9 #p20,
+.n9 #p24,
+.n9 #p28,
+.n9 #p32,
+.n9 #p33,
+.n9 #p34,
+.n9 #p35,
+.n9 #p36 {
+  background-color: #72f0ff;
+  border-color: #a6f5ff;
+  box-shadow:
+    0 0 0.1875rem #00d8ff,
+    0 0 0.5rem #0088ff,
+    0 0 1.125rem rgba(0, 136, 255, 0.9),
+    inset 0 0 0.125rem #ffffff;
 }
 
-/* ==========================================================
-   DREHZAHL ANZEIGE IN RPM
-   ========================================================== */
+/* DREHZAHL ANZEIGE IN RPM */
 .rpm-panel {
-    display: flex;
-    flex-direction: column;   
-    align-items: center;     
-    gap: clamp(0.4rem, 1.5vh, 0.625rem);               
-    background-color: #000000;
-    border-radius: 0.5rem;
-    border: 0.1875rem solid #5aeef1d7;
-    padding: clamp(0.75rem, 1vh, 1rem);
-    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.4rem, 1.5vh, 0.625rem);
+  background-color: #000000;
+  border-radius: 0.5rem;
+  border: 0.1875rem solid #5aeef1d7;
+  padding: clamp(0.75rem, 1vh, 1rem);
 }
 
 .rpm-panel h1 {
-    margin: 0;
-    padding-bottom: 15px;
-    font-family: sans-serif;
-    font-size: clamp(1.5rem, 2vw, 2.2rem);
-    font-weight: 700;
-    color: #f7f9fa;
-    text-align: center;
-    
+  margin: 0;
+  padding-bottom: 15px;
+  font-family: sans-serif;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  font-weight: 700;
+  color: #f7f9fa;
+  text-align: center;
 }
 
 .rpm-display {
-  font-size: clamp(1.5rem, 4vh, 2.5rem); /* Text schrumpft flexibel auf kleinen Bildschirmen */
+  font-size: clamp(1.5rem, 4vh, 2.5rem);
   font-weight: bold;
   color: #72f0ff;
   background-color: #000000;
@@ -524,7 +652,5 @@ width: clamp(200px, 18vw, 330px);
   padding: 0.5rem;
   border-radius: 0.5rem;
   box-shadow: 0px 0.5rem 0.75rem rgb(0, 187, 255);
-min-width: 6ch;   /* NEU: reserviert immer Platz für 4 Zeichen */
+  min-width: 6ch;
 }
-
-

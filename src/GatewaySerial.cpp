@@ -1,128 +1,119 @@
 #include "GatewaySerial.h"
 
-static int letzterBalkenWert = -1;    //Nur lokal sichtbar. Wird aber nicht gelöscht wie eine lokale Variable int ... , wenn man aus der Funktion rausspringt. static Variablen bleiben im RAM. Sie behählt cihren Wert und merkt sich diesen für den nächsten Funktionsaufruf
-//Varaible wird außerdem gesperrt, kann nicht von uaßen geändert werden, man könnte sie in einer anderen Datei neu definieren
-
+static int letzterBalkenWert = -1;
 static int letzterSegmentWert = -1;
-
 static int letzteCurrentRpm = -1;
 
-
-
 static bool letzterZustandLedLuefterAus = 1;
-static bool letzterZustandLedLuefterAn =1; 
+static bool letzterZustandLedLuefterAn = 1;
 static bool letzterZustandLedLuefterStoerung = 1;
 
-
-void initGatewaySerial(unsigned long baudrate) {
+void initGatewaySerial(unsigned long baudrate)
+{
   Serial.begin(baudrate);
 }
 
-
-
-
-void sendeBalkenWertBeiAenderung(int balkenWert) {
+void sendeBalkenWertBeiAenderung(int balkenWert)
+{
 
   // Serial.print("C++ HÖRT IN DER FUNKTION: ");
   // Serial.println(balkenWert);
   // -------------------------------
 
-  if (balkenWert != letzterBalkenWert) {
-    if (Serial) { 
-        Serial.println(balkenWert);
+  if (balkenWert != letzterBalkenWert)
+  {
+    if (Serial)
+    {
+      Serial.println(balkenWert);
 
       Serial.print("{\"type\":\"balkenWert\",\"value\":");
       Serial.print(balkenWert);
       Serial.println("}");
-      letzterBalkenWert = balkenWert; 
+      letzterBalkenWert = balkenWert;
     }
   }
 }
 
+void sendeSegmentWertbeiAenderung(int SegmentWert)
+{
+  if (SegmentWert != letzterSegmentWert)
+  {
 
-
-
-
-
-void sendeSegmentWertbeiAenderung(int SegmentWert) {
-  if (SegmentWert != letzterSegmentWert) {
-
-
- if (Serial) {
-  Serial.println(SegmentWert);
+    if (Serial)
+    {
+      Serial.println(SegmentWert);
       Serial.print("{\"type\":\"SegmentWert\",\"value\":");
-        Serial.print(SegmentWert);
+      Serial.print(SegmentWert);
       Serial.println("}");
-      letzterSegmentWert = SegmentWert;   // ← das fehlte
+      letzterSegmentWert = SegmentWert; // ← das fehlte
     }
-
-
   }
 }
 
+void sendeAktuelleRPM(int currentRpm)
+{
 
-void sendeAktuelleRPM(int currentRpm) {
+  if (letzteCurrentRpm != currentRpm)
+  {
+    if (Serial)
+    {
 
-
-  if (letzteCurrentRpm != currentRpm ) {
-    if (Serial) {
-      
-  Serial.println(currentRpm);
+      Serial.println(currentRpm);
       Serial.print("{\"type\":\"currentRpm\",\"value\":");
-        Serial.print(currentRpm);
+      Serial.print(currentRpm);
       Serial.println("}");
-      letzteCurrentRpm = currentRpm;   // ← das fehlte
+      letzteCurrentRpm = currentRpm; // ← das fehlte
     }
   }
 }
 
+void sendeWertLedLuefterAus(bool LedLuefterAus)
+{
 
+  if (letzterZustandLedLuefterAus != LedLuefterAus)
+  {
+    if (Serial)
+    {
 
-
-void sendeWertLedLuefterAus(bool LedLuefterAus) {
-
-
-  if (letzterZustandLedLuefterAus != LedLuefterAus ) {
-    if (Serial) {
-      
-  Serial.println(LedLuefterAus);
+      Serial.println(LedLuefterAus);
       Serial.print("{\"type\":\"LedLuefterAus\",\"value\":");
-        Serial.print(LedLuefterAus);
+      Serial.print(LedLuefterAus);
       Serial.println("}");
-      letzterZustandLedLuefterAus = LedLuefterAus;   // ← das fehlte
+      letzterZustandLedLuefterAus = LedLuefterAus; // ← das fehlte
     }
   }
 }
 
+void sendeWertLedLuefterAn(bool LedLuefterAn)
+{
 
-void sendeWertLedLuefterAn(bool LedLuefterAn){
+  if (letzterZustandLedLuefterAn != LedLuefterAn)
+  {
+    if (Serial)
+    {
 
-
-  if (letzterZustandLedLuefterAn != LedLuefterAn ) {
-    if (Serial) {
-      
-  Serial.println(LedLuefterAn);
+      Serial.println(LedLuefterAn);
       Serial.print("{\"type\":\"LedLuefterAn\",\"value\":");
-        Serial.print(LedLuefterAn);
+      Serial.print(LedLuefterAn);
       Serial.println("}");
-      letzterZustandLedLuefterAn = LedLuefterAn;   // ← das fehlte
+      letzterZustandLedLuefterAn = LedLuefterAn; // ← das fehlte
     }
   }
 }
 
+void sendeWertLedLuefterStoerung(bool LedLuefterStoerung)
+{
 
-void sendeWertLedLuefterStoerung(bool LedLuefterStoerung) {
+  if (letzterZustandLedLuefterStoerung != LedLuefterStoerung)
+  {
+    if (Serial)
+    {
 
-
-  if (letzterZustandLedLuefterStoerung != LedLuefterStoerung ) {
-    if (Serial) {
-      
-  Serial.println(LedLuefterStoerung);
+      Serial.println(LedLuefterStoerung);
       Serial.print("{\"type\":\"LedLuefterStoerung\",\"value\":");
-        Serial.print(LedLuefterStoerung);
+      Serial.print(LedLuefterStoerung);
       Serial.println("}");
-      letzterZustandLedLuefterStoerung = LedLuefterStoerung;   // ← das fehlte
+      letzterZustandLedLuefterStoerung = LedLuefterStoerung; // ← das fehlte
     }
   }
 }
-

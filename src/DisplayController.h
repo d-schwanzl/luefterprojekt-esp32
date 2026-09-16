@@ -4,8 +4,6 @@
 #include <Arduino.h>
 #include "PinMap.h"
 
-
-
 // Initialisiert alle Pins für Schieberegister und Status-LEDs
 // (entspricht der tatsächlichen Funktion in DisplayController.cpp)
 void displayBegin();
@@ -25,7 +23,4 @@ void blinken(int8_t zustand);
 // Erlaubt es der .ino, den Blink-Zustand von außen zu setzen/zurückzusetzen
 void setzeSignalZustand(bool zustand);
 
-
-
 #endif
-
