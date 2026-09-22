@@ -62,7 +62,7 @@ void sendeAktuelleRPM(int currentRpm)
       Serial.print("{\"type\":\"currentRpm\",\"value\":");
       Serial.print(currentRpm);
       Serial.println("}");
-      letzteCurrentRpm = currentRpm; // ← das fehlte
+      letzteCurrentRpm = currentRpm;
     }
   }
 }
@@ -79,7 +79,7 @@ void sendeWertLedLuefterAus(bool LedLuefterAus)
       Serial.print("{\"type\":\"LedLuefterAus\",\"value\":");
       Serial.print(LedLuefterAus);
       Serial.println("}");
-      letzterZustandLedLuefterAus = LedLuefterAus; // ← das fehlte
+      letzterZustandLedLuefterAus = LedLuefterAus;
     }
   }
 }
@@ -96,7 +96,7 @@ void sendeWertLedLuefterAn(bool LedLuefterAn)
       Serial.print("{\"type\":\"LedLuefterAn\",\"value\":");
       Serial.print(LedLuefterAn);
       Serial.println("}");
-      letzterZustandLedLuefterAn = LedLuefterAn; // ← das fehlte
+      letzterZustandLedLuefterAn = LedLuefterAn;
     }
   }
 }
@@ -113,7 +113,7 @@ void sendeWertLedLuefterStoerung(bool LedLuefterStoerung)
       Serial.print("{\"type\":\"LedLuefterStoerung\",\"value\":");
       Serial.print(LedLuefterStoerung);
       Serial.println("}");
-      letzterZustandLedLuefterStoerung = LedLuefterStoerung; // ← das fehlte
+      letzterZustandLedLuefterStoerung = LedLuefterStoerung;
     }
   }
 }

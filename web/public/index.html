@@ -3,89 +3,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lüftersteuerung</title>
+    <title>Fan control</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
     <div class="dev-banner">
-      🚧 Funktionaler Prototyp – Alle Kernfunktionen sind vollständig
-      implementiert und einsatzbereit. Zur Zeit erfolgt Code-Refactoring.
+      🚧 Functional prototype – All core features are fully implemented and
+      ready for use. Code refactoring is currently in progress.
     </div>
-    <!-- Wrapper: umschließt alles, 100% Breite und Höhe -->
     <div class="wrapper">
-      <!-- Container links: linke Hälfte -->
       <div class="container" id="container-links">
-        <h2>Bedienfeld</h2>
+        <h2>Control panel</h2>
         <div class="containerButtons">
-          <!-- Container links: Container 1 -->
           <div class="sub-container1">
-            <button class="taster taster--ein">Ein</button>
-            <button class="taster taster--aus">AUS</button>
+            <button class="taster taster--ein">ON</button>
+            <button class="taster taster--aus">OFF</button>
           </div>
-          <!-- Container links: Container 2 -->
           <div class="sub-container2">
-            <button class="taster taster--hoch">HOCH</button>
-            <button class="taster taster--runter">RUNTER</button>
+            <button class="taster taster--hoch">UP</button>
+            <button class="taster taster--runter">DOWN</button>
           </div>
         </div>
       </div>
 
-      <!-- Container rechts-->
-
       <div class="container" id="container-rechts">
-        <h2 id="h2Anzeigefeld">Anzeigefeld</h2>
+        <h2 id="h2Anzeigefeld">Display field</h2>
 
         <div class="sub-container3">
-          <!-- LED Statusanzeige -->
-
+          <!-- LED status indicator -->
           <div class="led-group1">
-            <h1>Lüfter Statusanzeige</h1>
-            <!-- Paket 1 -->
+            <h1>Fan status display</h1>
             <div class="led-items1">
               <div class="led" id="symbol-led1"></div>
-              <span class="led-label1">AUS</span>
+              <span class="led-label1">OFF</span>
             </div>
 
-            <!-- Paket 2 -->
             <div class="led-items1">
               <div class="led" id="symbol-led2"></div>
-              <span class="led-label1">EIN</span>
+              <span class="led-label1">ON</span>
             </div>
 
-            <!-- Paket 3 -->
             <div class="led-items1">
               <div class="led" id="symbol-led3"></div>
-              <span class="led-label1">STÖRUNG</span>
+              <span class="led-label1">FAULT</span>
             </div>
           </div>
 
-          <!-- Container Bargraph und Container Matrixanzeige Container RPM-Anzeige zusammenfassen -->
+          <!-- Combine container bargraph, container matrix display, and container RPM display -->
           <div class="containerSum">
-            <!--2. Bargraph :Lüfterstufen-->
+            <!-- 2. Bargraph: Fan levels -->
             <div class="led-group2">
-              <h1>Lüfterstufen</h1>
-              <!-- Container für die 4 LEDs nebeneinander -->
+              <h1>Fan stages</h1>
+              <!-- Container for the 4 LEDs side by side -->
               <div class="led-container2">
-                <!-- LED 1: Stufe 1 -->
                 <div class="led-wrapper">
                   <div class="led" id="led1"></div>
                   <span class="led-label2">1</span>
                 </div>
 
-                <!-- LED 2: Stufe 2 -->
                 <div class="led-wrapper">
                   <div class="led" id="led2"></div>
                   <span class="led-label2">2</span>
                 </div>
 
-                <!-- LED 3: Stufe 3 -->
                 <div class="led-wrapper">
                   <div class="led" id="led3"></div>
                   <span class="led-label2">3</span>
                 </div>
 
-                <!-- LED 4: Stufe 4 -->
                 <div class="led-wrapper">
                   <div class="led" id="led4"></div>
                   <span class="led-label2">4</span>
@@ -93,11 +79,11 @@
               </div>
             </div>
 
-            <!-- Segmentanzeige bzw. Matrix LED. -->
+            <!-- Segment display or LED matrix. -->
             <div class="matrix-panel">
-              <h1>Matrixanzeige</h1>
+              <h1>Matrix display</h1>
               <div class="matrix-display n0">
-                <!-- Reihe 1 bis 4 -->
+                <!-- Row 1 to 4 -->
                 <div id="p1"></div>
                 <div id="p2"></div>
                 <div id="p3"></div>
@@ -114,7 +100,7 @@
                 <div id="p14"></div>
                 <div id="p15"></div>
                 <div id="p16"></div>
-                <!-- Reihe 5 bis 9 -->
+                <!-- Row 5 to 9 -->
                 <div id="p17"></div>
                 <div id="p18"></div>
                 <div id="p19"></div>
@@ -138,9 +124,9 @@
               </div>
             </div>
 
-            <!--Drehzahl Anzeige in RPM -->
+            <!-- Speed display in RPM -->
             <div class="rpm-panel">
-              <h1>Drehzahl (RPM)</h1>
+              <h1>RPM (Speed)</h1>
               <div class="rpm-display" id="rpm-value">0</div>
             </div>
           </div>
