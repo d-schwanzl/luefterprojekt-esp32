@@ -149,12 +149,11 @@ void setup()
 {
 
   Serial.begin(115200);
-
   initGatewaySerial(115200); // Startet die Serielle Kommunikation mit dem Gateway.
 
   pinMode(TACHO_PIN, INPUT_PULLUP);
-  pinMode(Taster_AUS, INPUT_PULLUP);
-  pinMode(Taster_EIN, INPUT_PULLUP);
+  pinMode(Taster_AUS, INPUT);
+  pinMode(Taster_EIN, INPUT);
   pinMode(Taster_Runterschalten_PWM, INPUT_PULLUP);
   pinMode(Taster_Hochschalten_PWM, INPUT_PULLUP);
   pinMode(OUTPUT_PWM_PIN, OUTPUT);
@@ -183,12 +182,12 @@ void setup()
   attachInterrupt(
       digitalPinToInterrupt(Taster_AUS),
       LuefterOffISR,
-      FALLING);
+      RISING);
 
   attachInterrupt(
       digitalPinToInterrupt(Taster_EIN),
       LuefterOnISR,
-      FALLING);
+      RISING);
 
   // Tacho-Interrupt auslagern & starten
   initTacho(TACHO_PIN);
@@ -196,6 +195,8 @@ void setup()
   // PWM
   ledcAttach(OUTPUT_PWM_PIN, 25000, 8);
   ledcWrite(OUTPUT_PWM_PIN, 0);
+
+
 }
 
 // Das ist die Funktion, die die Befehle der vier Tasten verarbeitet, die in den Mikrocontroller gelangen vom Webinterface
@@ -238,12 +239,17 @@ void processIncomingSerial()
       }
     }
   }
+
+
+
 }
+
 
 void loop()
 {
-
-  processIncomingSerial(); // Rufe die serielle Eingabe auf: Sind Befehle vom Web-Interface eingetroffen?
+processIncomingSerial();   // fürs Testen auskommentiert
+// testSerialEingabe();
+//  processIncomingSerial(); // Rufe die serielle Eingabe auf: Sind Befehle vom Web-Interface eingetroffen?
 
   tasterHochRunterVerarbeiten(); // Taster gedrückt, physisch hoch/runter
   if (aktueller_zustandx == LUEFTER_EIN)
@@ -292,8 +298,9 @@ void loop()
       ledcWrite(OUTPUT_PWM_PIN, 255); // Lüfter aus (invertiert)
       currentDutyCycle = 255;
       boostAktiv = false; // Scharfschalten für den nächsten Start in Stufe 1
-      break;
       var_falsche_Stoerung = false;
+      break;
+      
 
     case 1: // Erste Langsame Stufe mit 800ms Anlaufboost
       if (!boostAktiv)
@@ -355,9 +362,14 @@ void loop()
 
     uint8_t currentStage = getStageFromRpm(currentRpm);
 
+    static uint8_t lastLoggedStage = 255;
+    if (currentStage != lastLoggedStage)
+    {
+      lastLoggedStage = currentStage;
+    }
+
     aktuelleZahl = currentStage;
   }
-
   var_RPM = aktuelleZahl;
 
   //-----------------------------------------
@@ -437,19 +449,16 @@ void loop()
   if (balkenWert < 0)
     balkenWert = 0;
 
-  sendeBalkenAnzeige(balkenWert); // Sende die Pulsweitenmodulationsstufe: 0-4
-  sendeSegment(aktuelleZahl);     // Sende den Wert Drehzahlstufe, Geschwindigkeit des Lüfters
   blinken(aktueller_Zustand_B1);  // Sende den Zustand der drei LEDs an die Steuerung
 
-  // --------------------------------------------------------------------------------------
-  // Hier stehen die Funktionsaufrufe, die an das Gateway des Webinterface übergeben werden
-  // --------------------------------------------------------------------------------------
 
-  // Sende die aktuelle PWM-Stufe an das Gateway, wenn sie sich geändert hat
+
+
+
   sendeBalkenWertBeiAenderung(balkenWert);
-  // Sendet den Wert der 7‑Segmentanzeige
+  // // Sendet den Wert der 7‑Segmentanzeige
 
-  // Sendet die aktuelle Lüfterdrehzahl
+  // // Sendet die aktuelle Lüfterdrehzahl
   sendeAktuelleRPM(currentRpm);
 
   if (aktuelleZahl != lastSegment)
@@ -457,9 +466,13 @@ void loop()
     lastSegment = aktuelleZahl;
     lasttimeSegment = millis();
   }
-  // Keinen falschen Segmentwert-Ausreißer an Web-Interface übergeben(Abfangen): Stufe muss mindestens 100 ms stabil sein.
+  // Keinen falschen Segmentwert-Ausreißer  übergeben(Abfangen): Stufe muss mindestens 100 ms stabil sein.
   if (millis() - lasttimeSegment > 100)
   {
+
+    
+  sendeBalkenAnzeige(balkenWert); // Sende die Pulsweitenmodulationsstufe: 0-4 an Pin
+  sendeSegment(aktuelleZahl);     // Sende den Wert Drehzahlstufe, Geschwindigkeit des Lüfters an Pin
     stabileZahl = lastSegment;
     sendeSegmentWertbeiAenderung(stabileZahl); // Bitte sende an die serielle Schnittstelle, wenn der Zustand stabil ist, Den Wert der Segmentanzeige.
   }
@@ -468,6 +481,5 @@ void loop()
   sendeWertLedLuefterAus(LedLuefterAus);
   sendeWertLedLuefterAn(LedLuefterAn);
   sendeWertLedLuefterStoerung(LedLuefterStoerung);
-
   delay(1);
 }

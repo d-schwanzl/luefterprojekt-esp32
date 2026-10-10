@@ -5,7 +5,7 @@
 
 // --- Schieberegister (74HC595) ---
 constexpr uint8_t DATA_PIN = 0;  // DS
-constexpr uint8_t LATCH_PIN = 4; // ST_CP
+constexpr uint8_t LATCH_PIN = 4; // 
 constexpr uint8_t CLOCK_PIN = 1; // SH_CP
 
 // --- Status-LEDs ---

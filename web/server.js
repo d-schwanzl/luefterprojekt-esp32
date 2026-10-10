@@ -26,6 +26,11 @@ port.on("error", (err) => {
   console.error("Serieller Schnittstellenfehler:", err.message);
 });
 
+
+port.on("open", () => {
+  console.log("Serielle Verbindung offen: COM3");
+});
+
 // 4. Parser an den Port hängen (Liest Zeile für Zeile bei \n)
 const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
 

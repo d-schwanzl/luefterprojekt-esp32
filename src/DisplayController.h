@@ -23,4 +23,6 @@ void blinken(int8_t zustand);
 // Erlaubt es der .ino, den Blink-Zustand von außen zu setzen/zurückzusetzen
 void setzeSignalZustand(bool zustand);
 
+void testSerialEingabe();
+
 #endif

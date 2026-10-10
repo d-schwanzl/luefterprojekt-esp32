@@ -1,5 +1,7 @@
 #include "TachoStage.h"
 
+#define MIN_LOW_US 2000 // Low-Phase muss mindestens 2 ms dauern
+
 // Thresholds
 static uint16_t stageThresholds[NUM_STAGES] = {
     0,    // Stufe 0: Stand
@@ -14,58 +16,55 @@ static uint16_t stageThresholds[NUM_STAGES] = {
     1550  // Stufe 9
 };
 
-// Internal volatile ISR variables
-volatile uint32_t lastPulseTime = 0;
-volatile uint32_t pulsePeriod = 0;
-volatile bool newPulseFlag = false;
+// ISR-Variablen
+volatile uint32_t pulseCount = 0;
+volatile uint32_t fallTime = 0;
+static uint8_t tachoPinNr = 0;
 
-// Interrupt Service Routine
+// Interrupt Service Routine: reagiert auf beide Flanken
 void IRAM_ATTR onTachoPulse()
 {
   uint32_t now = micros();
-  pulsePeriod = now - lastPulseTime;
-  lastPulseTime = now;
-  newPulseFlag = true;
+  if (digitalRead(tachoPinNr) == LOW)
+  {
+    fallTime = now; // Low-Phase beginnt
+  }
+  else if (fallTime != 0)
+  {
+    if (now - fallTime >= MIN_LOW_US) // Low-Phase lang genug?
+      pulseCount++;
+    fallTime = 0;
+  }
 }
 
 // Initialisiere den Tacho-Pin
 void initTacho(uint8_t tachoPin)
 {
+  tachoPinNr = tachoPin;
   pinMode(tachoPin, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(tachoPin), onTachoPulse, FALLING);
+  attachInterrupt(digitalPinToInterrupt(tachoPin), onTachoPulse, CHANGE);
 }
 
-// Berechnet die aktuelle RPM inkl. Stall-Detection (Stillstand)
+// Berechnet die aktuelle RPM aus der Impulszahl in einem 500-ms-Fenster
 uint16_t processTachoRpm()
 {
-  static uint16_t currentRpm = 0;
+  static uint32_t windowStart = 0;
+  static uint16_t rpm = 0;
 
-  // Neuer Impuls verarbeiten
-  if (newPulseFlag)
+  uint32_t now = millis();
+  uint32_t dt = now - windowStart;
+  if (dt >= 500)
   {
     noInterrupts();
-    uint32_t period = pulsePeriod;
-    newPulseFlag = false;
+    uint32_t c = pulseCount;
+    pulseCount = 0;
     interrupts();
 
-    if (period > 0)
-    {
-      float freqHz = 1000000.0 / period;
-      currentRpm = (uint16_t)((freqHz * 60.0) / PULSES_PER_REV);
-    }
+    rpm = (uint16_t)((c * 60000UL / dt) / PULSES_PER_REV);
+    windowStart = now;
+    Serial.printf("t=%lu dt=%lu impulse=%lu rpm=%u\n", now, dt, c, rpm);
   }
-
-  // Stillstandserkennung prüfen
-  noInterrupts();
-  uint32_t timeSinceLast = micros() - lastPulseTime;
-  interrupts();
-
-  if (timeSinceLast > (STALL_TIMEOUT_MS * 1000UL))
-  {
-    currentRpm = 0;
-  }
-
-  return currentRpm;
+  return rpm;
 }
 
 // Interne Hilfsfunktion ohne Hysterese

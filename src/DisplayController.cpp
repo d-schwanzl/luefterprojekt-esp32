@@ -11,29 +11,30 @@ byte aktuellesLED = 0;     // Index 0..4 für Balkenanzeige
 
 // Baustein 2: Balkenanzeige (2. Register)
 const byte barPatterns[10] = {
-    0b00000000, // S0: Aus
-    0b00000001, // S1: 1 LED
-    0b00000011, // S2: 2 LEDs
-    0b00000111, // S3: 3 LEDs
-    0b00001111, // S4: 4 LEDs
-    0b00000000,
-    0b00000000,
-    0b00000000,
-    0b00000000,
-    0b00000000};
+  0b11111111, // S0: Aus        sende Zahl (0)
+  0b11111110, // S1: 1 LED      sende Zahl (1)
+  0b11111100, // S2: 2 LEDs     sende Zahl (2)
+  0b11111000, // S3: 3 LEDs      sende Zahl (3)
+  0b11110000, // S4: 4 LEDs    sende Zahl (4)
+  0b11111111,
+  0b11111111,
+  0b11111111,
+  0b11111111,
+  0b11111111
+  };
 
 // Baustein 3: 7-Segment-Anzeige (1. Register)
 const byte digitPatterns[10] = {
-    0b00111111, // 0
-    0b00000110, // 1
-    0b01011011, // 2
-    0b01001111, // 3
-    0b01100110, // 4
-    0b01101101, // 5
-    0b01111101, // 6
-    0b00000111, // 7
-    0b01111111, // 8
-    0b01101111  // 9
+  0b01000000, // 0
+  0b01111001, // 1
+  0b00100100, // 2
+  0b00110000, // 3
+  0b00011001, // 4
+  0b00010010, // 5
+  0b00000010, // 6
+  0b01111000, // 7
+  0b00000000, // 8
+  0b00010000  // 9
 };
 
 void displayBegin()
@@ -46,7 +47,7 @@ void displayBegin()
   digitalWrite(DATA_PIN, LOW);
   digitalWrite(LATCH_PIN, LOW);
   digitalWrite(CLOCK_PIN, LOW);
-
+  
   // Initialwert setzen (Display '0', Balken 'S0')
   sendeDaten(0, 0);
 
@@ -86,14 +87,20 @@ void sendeDaten(byte segmentIndex, byte ledIndex)
   aktuellesSegment = segmentIndex; // Index merken
   aktuellesLED = ledIndex;         // Index merken
 
+  // Serial.print("sendeDaten: Segment=");
+  // Serial.print(segmentIndex);
+  // Serial.print(" LED=");
+  // Serial.println(ledIndex);
+
   digitalWrite(LATCH_PIN, LOW);
 
-  // 2. shiftOut -> Bleibt im 1. Register stehen (7-Segment)
+  //1. shiftOut -> Daten werden ins zweite Register geschoben, nach zweitem shiftout.
   shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, digitPatterns[aktuellesSegment]);
 
-  // 1. shiftOut -> Wandert durch das 1. IC durch ins 2. Register (Balken)
+  // 2. shiftOut -> Daten von Segment werden an Segment übergben und die Daten von Balkenanzeige werden an Balkenregister übergeben
   shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, barPatterns[aktuellesLED]);
 
+  //Aktiviert die Ausgabe für beide Register
   digitalWrite(LATCH_PIN, HIGH);
 }
 
@@ -105,6 +112,20 @@ void sendeSegment(byte segmentIndex)
 
 // Hilfsfunktion: Nur Balkenanzeige ändern
 void sendeBalkenAnzeige(byte ledIndex)
-{
+{ 
   sendeDaten(aktuellesSegment, ledIndex);
 }
+
+
+// void testSerialEingabe()
+// {
+//   while (Serial.available() > 0)
+//   {
+//     char c = Serial.read();
+//     if (c >= '0' && c <= '9')
+//     {
+//       uint8_t stufe = c - '0';
+//       sendeDaten(stufe, stufe);
+//     }
+//   }
+// }
