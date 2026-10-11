@@ -247,9 +247,8 @@ void processIncomingSerial()
 
 void loop()
 {
-processIncomingSerial();   // fürs Testen auskommentiert
-// testSerialEingabe();
-//  processIncomingSerial(); // Rufe die serielle Eingabe auf: Sind Befehle vom Web-Interface eingetroffen?
+// Rufe die serielle Eingabe auf: Sind Befehle vom Web-Interface eingetroffen?
+processIncomingSerial();  
 
   tasterHochRunterVerarbeiten(); // Taster gedrückt, physisch hoch/runter
   if (aktueller_zustandx == LUEFTER_EIN)
@@ -275,7 +274,7 @@ processIncomingSerial();   // fürs Testen auskommentiert
       if (button_PWM_stage < 4)
       { // Erlaubt das Hochzählen nur bis max. 4
         button_PWM_stage++;
-        Serial.print("[TASTER] HOCH -> Neue Soll-Stufe: ");
+        // Serial.print("[TASTER] HOCH -> Neue Soll-Stufe: ");
       }
       aktueller_zustandy = LUEFTER_STAGE_0;
     }
@@ -286,7 +285,7 @@ processIncomingSerial();   // fürs Testen auskommentiert
       if (button_PWM_stage > 0)
       { // Erlaubt das Runterzählen nur bis min. 0
         button_PWM_stage--;
-        Serial.print("[TASTER] RUNTER -> Neue Soll-Stufe: ");
+        // Serial.print("[TASTER] RUNTER -> Neue Soll-Stufe: ");
       }
       aktueller_zustandy = LUEFTER_STAGE_0;
     }
@@ -309,7 +308,7 @@ processIncomingSerial();   // fürs Testen auskommentiert
         ledcWrite(OUTPUT_PWM_PIN, 0); // Vollgas für Anlauf um Drehmoment zum Anlaufen zu erreichen (invertiert)
         currentDutyCycle = 0;
         boostAktiv = true; // Verriegeln, damit der Boost nur einmal läuft
-        Serial.println("[PWM] Stufe 1: BOOST gestartet (100%)");
+        // Serial.println("[PWM] Stufe 1: BOOST gestartet (100%)");
         var_falsche_Stoerung = true;
       }
       else if (millis() - actionStartTime2 >= 1500)
@@ -409,13 +408,13 @@ processIncomingSerial();   // fürs Testen auskommentiert
     digitalWrite(LED_STOERUNG, LOW);
     setzeSignalZustand(false);
 
-    Serial.print("[STATUS-WECHSEL]: ZUSTAND ");
+    // Serial.print("[STATUS-WECHSEL]: ZUSTAND ");
 
     switch (aktueller_Zustand_B1)
     {
     case 0:
       digitalWrite(LED_EIN, HIGH);
-      Serial.println("0 -> [BETRIEB / EIN] | LED_EIN aktiv");
+      // Serial.println("0 -> [BETRIEB / EIN] | LED_EIN aktiv");
       LedLuefterAn = true;
       LedLuefterAus = false;
       LedLuefterStoerung = false;
@@ -423,7 +422,7 @@ processIncomingSerial();   // fürs Testen auskommentiert
 
     case 1:
       digitalWrite(LED_AUS, HIGH);
-      Serial.println("1 -> [AUS] | LED_AUS aktiv");
+      // Serial.println("1 -> [AUS] | LED_AUS aktiv");
       LedLuefterAus = true;
       LedLuefterAn = false;
       LedLuefterStoerung = false;
@@ -431,7 +430,7 @@ processIncomingSerial();   // fürs Testen auskommentiert
       break;
 
     case 2:
-      Serial.println("2 -> [STÖRUNG] | LED_STÖRUNG blinkt mit 1 Hz");
+      // Serial.println("2 -> [STÖRUNG] | LED_STÖRUNG blinkt mit 1 Hz");
       LedLuefterStoerung = true;
       LedLuefterAn = false;
       LedLuefterAus = false;
@@ -455,11 +454,6 @@ processIncomingSerial();   // fürs Testen auskommentiert
 
 
 
-  sendeBalkenWertBeiAenderung(balkenWert);
-  // // Sendet den Wert der 7‑Segmentanzeige
-
-  // // Sendet die aktuelle Lüfterdrehzahl
-  sendeAktuelleRPM(currentRpm);
 
   if (aktuelleZahl != lastSegment)
   {
@@ -468,18 +462,21 @@ processIncomingSerial();   // fürs Testen auskommentiert
   }
   // Keinen falschen Segmentwert-Ausreißer  übergeben(Abfangen): Stufe muss mindestens 100 ms stabil sein.
   if (millis() - lasttimeSegment > 100)
-  {
-
-    
+  { 
   sendeBalkenAnzeige(balkenWert); // Sende die Pulsweitenmodulationsstufe: 0-4 an Pin
   sendeSegment(aktuelleZahl);     // Sende den Wert Drehzahlstufe, Geschwindigkeit des Lüfters an Pin
-    stabileZahl = lastSegment;
-    sendeSegmentWertbeiAenderung(stabileZahl); // Bitte sende an die serielle Schnittstelle, wenn der Zustand stabil ist, Den Wert der Segmentanzeige.
-  }
+  stabileZahl = lastSegment;
 
-  // LED‑Werte an Statusanzeige senden(Gateway)
+  /*Werte an Gateway senden*/
   sendeWertLedLuefterAus(LedLuefterAus);
   sendeWertLedLuefterAn(LedLuefterAn);
   sendeWertLedLuefterStoerung(LedLuefterStoerung);
+  sendeBalkenWertBeiAenderung(balkenWert);
+  sendeSegmentWertbeiAenderung(stabileZahl); 
+  // Sendet die aktuelle Lüfterdrehzahl zur Verarbeitung
+  sendeAktuelleRPM(currentRpm);
+  }
+
+
   delay(1);
 }

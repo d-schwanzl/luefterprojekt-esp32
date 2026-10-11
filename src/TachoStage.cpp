@@ -62,7 +62,7 @@ uint16_t processTachoRpm()
 
     rpm = (uint16_t)((c * 60000UL / dt) / PULSES_PER_REV);
     windowStart = now;
-    Serial.printf("t=%lu dt=%lu impulse=%lu rpm=%u\n", now, dt, c, rpm);
+    // Serial.printf("t=%lu dt=%lu impulse=%lu rpm=%u\n", now, dt, c, rpm);
   }
   return rpm;
 }

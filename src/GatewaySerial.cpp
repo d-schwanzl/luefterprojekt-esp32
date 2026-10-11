@@ -45,7 +45,7 @@ void sendeSegmentWertbeiAenderung(int SegmentWert)
       Serial.print("{\"type\":\"SegmentWert\",\"value\":");
       Serial.print(SegmentWert);
       Serial.println("}");
-      letzterSegmentWert = SegmentWert; // ← das fehlte
+      letzterSegmentWert = SegmentWert;
     }
   }
 }
