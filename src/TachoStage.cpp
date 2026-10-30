@@ -45,7 +45,7 @@ void initTacho(uint8_t tachoPin)
   attachInterrupt(digitalPinToInterrupt(tachoPin), onTachoPulse, CHANGE);
 }
 
-// Berechnet die aktuelle RPM aus der Impulszahl in einem 500-ms-Fenster
+// Berechnet die aktuelle RPM aus der Impulszahl in einem 700-ms-Fenster
 uint16_t processTachoRpm()
 {
   static uint32_t windowStart = 0;
@@ -53,7 +53,7 @@ uint16_t processTachoRpm()
 
   uint32_t now = millis();
   uint32_t dt = now - windowStart;
-  if (dt >= 500)
+  if (dt >= 700)
   {
     noInterrupts();
     uint32_t c = pulseCount;

@@ -144,6 +144,16 @@ void tasterHochRunterVerarbeiten()
   }
 }
 
+// Nadelimpuls: Pin 10 ms auf LOW, danach loslassen (Pull-up übernimmt)
+void latchPuls(uint8_t pin)
+{
+  digitalWrite(pin, LOW);
+  pinMode(pin, OUTPUT);
+  delay(10);
+  pinMode(pin, INPUT_PULLUP);
+}
+
+
 // Setup-Teil
 void setup()
 {
@@ -171,8 +181,8 @@ void setup()
   sendeDaten(0, 0);
 
   // Pins der Statusanzeige
-  pinMode(LED_EIN, OUTPUT);
-  pinMode(LED_AUS, OUTPUT);
+  pinMode(LED_EIN, INPUT_PULLUP);
+  pinMode(LED_AUS, INPUT_PULLUP);
   pinMode(LED_STOERUNG, OUTPUT);
 
   digitalWrite(LED_EIN, LOW);
@@ -311,7 +321,7 @@ processIncomingSerial();
         // Serial.println("[PWM] Stufe 1: BOOST gestartet (100%)");
         var_falsche_Stoerung = true;
       }
-      else if (millis() - actionStartTime2 >= 1500)
+      else if (millis() - actionStartTime2 >= 2000)
       {
         ledcWrite(OUTPUT_PWM_PIN, 235); // Zielwert für Stufe 1 (invertiert)
         currentDutyCycle = 235;
@@ -413,7 +423,8 @@ processIncomingSerial();
     switch (aktueller_Zustand_B1)
     {
     case 0:
-      digitalWrite(LED_EIN, HIGH);
+      
+      latchPuls(LED_EIN);
       // Serial.println("0 -> [BETRIEB / EIN] | LED_EIN aktiv");
       LedLuefterAn = true;
       LedLuefterAus = false;
@@ -421,7 +432,7 @@ processIncomingSerial();
       break;
 
     case 1:
-      digitalWrite(LED_AUS, HIGH);
+       latchPuls(LED_AUS);
       // Serial.println("1 -> [AUS] | LED_AUS aktiv");
       LedLuefterAus = true;
       LedLuefterAn = false;

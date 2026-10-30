@@ -1,4 +1,4 @@
-//Komplette bidirektionale Verbindung, quasi der Postbote zwischen Frontend: script.js und GatewaySerial.pp des ESPs
+// Gateway zwischen Browser (script.js) und ESP32 (GatewaySerial.cpp)
 
 const express = require("express");
 const path = require("path");
@@ -7,76 +7,76 @@ const { ReadlineParser } = require("@serialport/parser-readline");
 const { WebSocketServer, WebSocket } = require("ws");
 
 const app = express();
-
-// 1. Webserver-Ordner "public" freigeben (hier liegt deine index.html & script.js)
 app.use(express.static(path.join(__dirname, "public")));
-
-// 2. HTTP-Webserver auf Port 3000 starten
 app.listen(3000, () => {
   console.log("Webinterface erreichbar unter http://localhost:3000");
 });
 
-// 3. Serielle Verbindung zum ESP32-H2 initialisieren
-const port = new SerialPort({
-  path: "COM3", // Passe deinen COM-Port an, falls nötig
-  baudRate: 115200,
-});
-
-port.on("error", (err) => {
-  console.error("Serieller Schnittstellenfehler:", err.message);
-});
-
-
-port.on("open", () => {
-  console.log("Serielle Verbindung offen: COM3");
-});
-
-// 4. Parser an den Port hängen (Liest Zeile für Zeile bei \n)
-const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
-
-// 5. WebSocket-Server auf Port 8080 starten
+// WebSocket-Server zuerst anlegen
 const wss = new WebSocketServer({ port: 8080 });
 console.log("WebSocket Server läuft auf ws://localhost:8080");
 
-parser.on("data", (line) => {
+let port = null;
+
+function verarbeiteZeile(line) {
   const cleanLine = line.trim();
-
-  console.log("VOM ESP32:", cleanLine);
-
   if (!cleanLine) return;
-
   try {
     const data = JSON.parse(cleanLine);
-
-    console.log("JSON ERKANNT:", data);
-
     wss.clients.forEach((client) => {
-      console.log("CLIENT STATUS:", client.readyState);
-
       if (client.readyState === WebSocket.OPEN) {
-        console.log("SENDE AN BROWSER:", JSON.stringify(data));
         client.send(JSON.stringify(data));
       }
     });
   } catch (err) {
-    console.log("JSON FEHLER:", cleanLine);
-    console.log(err.message);
+    // Debug-Zeile vom ESP, kein JSON: ignorieren
   }
-});
+}
 
-// 7. Befehle vom Browser empfangen und an den ESP32 weiterreichen
+async function verbinde() {
+  const ports = await SerialPort.list();
+  console.log(
+    "Gefundene Ports:",
+    ports.map((p) => `${p.path} (VID ${p.vendorId}, PID ${p.productId})`).join(", ") || "keine"
+  );
+
+  // Optional fest vorgeben: $env:COM_PORT="COM6"; node web/server.js
+  const gefunden = ports.find((p) => p.vendorId && p.vendorId.toUpperCase() === "303A");
+  const pfad = process.env.COM_PORT || (gefunden && gefunden.path);
+
+  if (!pfad) {
+    console.log("Kein ESP gefunden, neuer Versuch in 3 s");
+    setTimeout(verbinde, 3000);
+    return;
+  }
+
+  port = new SerialPort({ path: pfad, baudRate: 115200 });
+  port.on("open", () => console.log("Serielle Verbindung offen:", pfad));
+  port.on("error", (err) => console.error("Serieller Schnittstellenfehler:", err.message));
+  port.on("close", () => {
+    console.log("Port geschlossen, neuer Versuch in 3 s");
+    setTimeout(verbinde, 3000);
+  });
+
+  const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
+  parser.on("data", verarbeiteZeile);
+}
+
+// Befehle vom Browser an den ESP32 weiterreichen
 wss.on("connection", (ws) => {
   console.log("Browser verbunden.");
 
   ws.on("message", (message) => {
     const cleanMessage = message.toString().trim();
     console.log("Vom Browser empfangen:", cleanMessage);
-
-    // Direkt an den ESP32 über die serielle Schnittstelle weiterreichen
-    port.write(cleanMessage + "\n");
+    if (port && port.isOpen) {
+      port.write(cleanMessage + "\n");
+    } else {
+      console.log("Port nicht offen, Befehl verworfen");
+    }
   });
 
-  ws.on("close", () => {
-    console.log("Browser getrennt.");
-  });
+  ws.on("close", () => console.log("Browser getrennt."));
 });
+
+verbinde();
