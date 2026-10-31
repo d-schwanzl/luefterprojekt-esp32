@@ -25,7 +25,7 @@ static uint8_t tachoPinNr = 0;
 void IRAM_ATTR onTachoPulse()
 {
   uint32_t now = micros();
-  if (digitalRead(tachoPinNr) == LOW)
+  if (digitalRead(tachoPinNr) == HIGH)
   {
     fallTime = now; // Low-Phase beginnt
   }
@@ -41,7 +41,7 @@ void IRAM_ATTR onTachoPulse()
 void initTacho(uint8_t tachoPin)
 {
   tachoPinNr = tachoPin;
-  pinMode(tachoPin, INPUT_PULLUP);
+  pinMode(tachoPin, INPUT_PULLDOWN);
   attachInterrupt(digitalPinToInterrupt(tachoPin), onTachoPulse, CHANGE);
 }
 

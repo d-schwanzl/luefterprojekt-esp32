@@ -161,7 +161,7 @@ void setup()
   Serial.begin(115200);
   initGatewaySerial(115200); // Startet die Serielle Kommunikation mit dem Gateway.
 
-  pinMode(TACHO_PIN, INPUT_PULLUP);
+  pinMode(TACHO_PIN, INPUT_PULLDOWN);
   pinMode(Taster_AUS, INPUT);
   pinMode(Taster_EIN, INPUT);
   pinMode(Taster_Runterschalten_PWM, INPUT_PULLUP);
