@@ -311,7 +311,7 @@ processIncomingSerial();
       break;
       
 
-    case 1: // Erste Langsame Stufe mit 800ms Anlaufboost
+    case 1: // Erste Langsame Stufe mit 1300ms Anlaufboost
       if (!boostAktiv)
       {
         actionStartTime2 = millis();  // Zeitstempel einmalig sichern
@@ -321,10 +321,10 @@ processIncomingSerial();
         // Serial.println("[PWM] Stufe 1: BOOST gestartet (100%)");
         var_falsche_Stoerung = true;
       }
-      else if (millis() - actionStartTime2 >= 2000)
+      else if (millis() - actionStartTime2 >= 1300)
       {
-        ledcWrite(OUTPUT_PWM_PIN, 235); // Zielwert für Stufe 1 (invertiert)
-        currentDutyCycle = 235;
+        ledcWrite(OUTPUT_PWM_PIN, 240); // Zielwert für Stufe 1 (invertiert)
+        currentDutyCycle = 240;
         boostAktiv = true;
         var_falsche_Stoerung = false;
       }

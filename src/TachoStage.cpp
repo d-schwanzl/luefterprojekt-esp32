@@ -5,15 +5,15 @@
 // Thresholds
 static uint16_t stageThresholds[NUM_STAGES] = {
     0,    // Stufe 0: Stand, oder Wert unter MIN_VALID_RPM verworfen
-    300,  // Stufe 1
-    450,  // Stufe 2
-    600,  // Stufe 3
-    750,  // Stufe 4
-    900,  // Stufe 5
-    1050, // Stufe 6
-    1200, // Stufe 7
+    200,  // Stufe 1
+    250,  // Stufe 2
+    350,  // Stufe 3
+    550,  // Stufe 4
+    750,  // Stufe 5
+    950,  // Stufe 6
+    1150, // Stufe 7
     1350, // Stufe 8
-    1500  // Stufe 9
+    1600  // Stufe 9
 };
 
 // ISR-Variablen

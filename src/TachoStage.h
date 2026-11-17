@@ -4,7 +4,7 @@
 
 // Configuration Constants
 #define NUM_STAGES 10
-#define HYSTERESIS 50
+#define HYSTERESIS 35
 const int PULSES_PER_REV = 2;
 const unsigned long STALL_TIMEOUT_MS = 1000;
 
