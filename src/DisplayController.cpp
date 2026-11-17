@@ -11,11 +11,11 @@ byte aktuellesLED = 0;     // Index 0..4 für Balkenanzeige
 
 // Baustein 2: Balkenanzeige (2. Register)
 const byte barPatterns[10] = {
-  0b11111111, // S0: Aus        sende Zahl (0)
-  0b11111110, // S1: 1 LED      sende Zahl (1)
-  0b11111100, // S2: 2 LEDs     sende Zahl (2)
-  0b11111000, // S3: 3 LEDs      sende Zahl (3)
-  0b11110000, // S4: 4 LEDs    sende Zahl (4)
+  0b11111111, // 0 LEDs aktiv        
+  0b11111110, // 1 LED  aktiv
+  0b11111100, // 2 LEDs aktiv
+  0b11111000, // 3 LEDs aktiv   
+  0b11110000, // 4 LEDs aktiv  
   0b11111111,
   0b11111111,
   0b11111111,
@@ -25,16 +25,16 @@ const byte barPatterns[10] = {
 
 // Baustein 3: 7-Segment-Anzeige (1. Register)
 const byte digitPatterns[10] = {
-  0b01000000, // 0
-  0b01111001, // 1
-  0b00100100, // 2
-  0b00110000, // 3
-  0b00011001, // 4
-  0b00010010, // 5
-  0b00000010, // 6
-  0b01111000, // 7
-  0b00000000, // 8
-  0b00010000  // 9
+  0b01000000, // 0: Zahl 0 aktiv
+  0b01111001, // 1  Zahl 1 aktiv
+  0b00100100, // 2  Zahl 2 aktiv
+  0b00110000, // 3  Zahl 3 aktiv
+  0b00011001, // 4  Zahl 4 aktiv
+  0b00010010, // 5  Zahl 5 aktiv
+  0b00000010, // 6  Zahl 6 aktiv
+  0b01111000, // 7  Zahl 7 aktiv
+  0b00000000, // 8  Zahl 8 aktiv
+  0b00010000  // 9  Zahl 9 aktiv
 };
 
 void displayBegin()
