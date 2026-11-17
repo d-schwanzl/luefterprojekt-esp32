@@ -485,7 +485,12 @@ processIncomingSerial();
   sendeBalkenWertBeiAenderung(balkenWert);
   sendeSegmentWertbeiAenderung(stabileZahl); 
   // Sendet die aktuelle Lüfterdrehzahl zur Verarbeitung
-  sendeAktuelleRPM(currentRpm);
+static uint16_t angezeigteRpm = 0;
+if (currentRpm == 0 || abs((int)currentRpm - (int)angezeigteRpm) > 45)
+{
+  angezeigteRpm = currentRpm;
+}
+sendeAktuelleRPM(angezeigteRpm);
   }
 
 
