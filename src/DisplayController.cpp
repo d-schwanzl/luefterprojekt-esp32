@@ -87,17 +87,14 @@ void sendeDaten(byte segmentIndex, byte ledIndex)
   aktuellesSegment = segmentIndex; // Index merken
   aktuellesLED = ledIndex;         // Index merken
 
-  // Serial.print("sendeDaten: Segment=");
-  // Serial.print(segmentIndex);
-  // Serial.print(" LED=");
-  // Serial.println(ledIndex);
+
 
   digitalWrite(LATCH_PIN, LOW);
 
   //1. shiftOut -> Daten werden ins zweite Register geschoben, nach zweitem shiftout.
   shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, digitPatterns[aktuellesSegment]);
 
-  // 2. shiftOut -> Daten von Segment werden an Segment übergben und die Daten von Balkenanzeige werden an Balkenregister übergeben
+  // 2. shiftOut -> Daten von Segment werden an Segment übergeben und die Daten von Balkenanzeige werden an Balkenregister übergeben
   shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, barPatterns[aktuellesLED]);
 
   //Aktiviert die Ausgabe für beide Register
@@ -117,15 +114,3 @@ void sendeBalkenAnzeige(byte ledIndex)
 }
 
 
-// void testSerialEingabe()
-// {
-//   while (Serial.available() > 0)
-//   {
-//     char c = Serial.read();
-//     if (c >= '0' && c <= '9')
-//     {
-//       uint8_t stufe = c - '0';
-//       sendeDaten(stufe, stufe);
-//     }
-//   }
-// }
