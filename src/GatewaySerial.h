@@ -1,3 +1,13 @@
+/**
+ * GatewaySerial.h
+ *
+ * Serielle Schnittstelle zwischen ESP32 und dem JavaScript-Gateway auf dem PC.
+ *
+ * Senderichtung (ESP32 -> Web): sende*-Funktionen. Jeder Wert wird nur
+ * bei Änderung gesendet, als JSON-Zeile {"type":"<Name>","value":<Zahl>}.
+ *
+ * Empfangsrichtung (Web -> ESP32): processIncomingSerial().
+ */
 #ifndef GATEWAY_SERIAL_H
 #define GATEWAY_SERIAL_H
 
@@ -20,7 +30,7 @@ void sendeWertLedLuefterAus(bool LedLuefterAus);
 void sendeWertLedLuefterAn(bool LedLuefterAn);
 void sendeWertLedLuefterStoerung(bool LedLuefterStoerung);
 
-// Verarbeitet eingehende Befehle vom Webinterface (Web -> Hardware)
+// Verarbeitet eingehende Befehle vom Webinterface (Web -> Hardware) in main.ccp
 void processIncomingSerial();
 
 #endif

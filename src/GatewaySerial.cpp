@@ -1,6 +1,21 @@
+/**
+ * GatewaySerial.cpp
+ *
+ * Senderichtung ESP32 -> PC: schickt Messwerte und Zustände der
+ * Lüftersteuerung als JSON-Zeilen über die serielle Schnittstelle an das
+ * JavaScript-Gateway, z. B. {"type":"currentRpm","value":1200}.
+ *
+ * Die Gegenrichtung (Befehle vom Browser/Gateway an den ESP32) wird
+ * nicht hier, sondern in <Datei/Funktion eintragen> verarbeitet.
+ *
+ * Werte werden nur bei Änderung gesendet, damit die Leitung nicht mit
+ * identischen Daten geflutet wird.
+ */
+
+ 
 #include "GatewaySerial.h"
 
-static int letzterBalkenWert = -1;
+static int letzterBalkenWert = -1;  
 static int letzterSegmentWert = -1;
 static int letzteCurrentRpm = -1;
 
@@ -15,10 +30,6 @@ void initGatewaySerial(unsigned long baudrate)
 
 void sendeBalkenWertBeiAenderung(int balkenWert)
 {
-
-  // Serial.print("C++ HÖRT IN DER FUNKTION: ");
-  // Serial.println(balkenWert);
-  // -------------------------------
 
   if (balkenWert != letzterBalkenWert)
   {

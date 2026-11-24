@@ -1,3 +1,22 @@
+/*
+ * main.cpp: Lüftersteuerung (ESP32)
+ 
+ * Steuert einen PWM-geregelten Lüfter in vier Stufen. Bedienung über
+ * physische Taster (Ein, Aus, Hoch, Runter) oder über das Webinterface.
+ * Die Drehzahl wird über das Tachosignal gemessen; steht der Lüfter trotz
+ * Ansteuerung still, wechselt die Steuerung in den Zustand STÖRUNG.
+ */
+
+ /*
+ * Kommunikation mit dem Webinterface (JSON-Zeilen über USB-Serial):
+ *   ESP32 -> Web : Messwerte/Zustände, siehe GatewaySerial.cpp
+ *   Web -> ESP32 : {"type":"command","action":"ein|aus|hoch|runter"}
+ *                  (verarbeitet in processIncomingSerial())
+ *
+ * Ablauf in loop(): Befehle lesen -> Taster auswerten -> PWM setzen ->
+ * Drehzahl messen -> Zustand bestimmen -> Anzeigen und Gateway aktualisieren.
+ */
+
 #include <Arduino.h>
 #include <ArduinoJson.h>
 #include "GatewaySerial.h"

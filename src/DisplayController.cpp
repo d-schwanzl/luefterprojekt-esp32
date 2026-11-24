@@ -1,3 +1,14 @@
+/**
+ * DisplayController.cpp
+ *
+ * Steuert die Balkenanzeige (5 Stufen 0 bis 4) und die 7-Segment-Anzeige über zwei
+ * kaskadierte Schieberegister.
+ * 
+ * Desweiteren werden über drei zusätzliche PINs EIN-LED, AUS-LED,
+ * sowie das Blinken der Störungs-LED.
+ */
+
+
 #include "DisplayController.h"
 #include "PinMap.h"
 
@@ -9,6 +20,8 @@ bool signalZustand = false;
 byte aktuellesSegment = 0; // Index 0..9 für 7-Segment
 byte aktuellesLED = 0;     // Index 0..4 für Balkenanzeige
 
+
+//Baustein 1 und Baustein 2 sind zwei kaskadierte Schieberegister, die über die Pins DATA_PIN, CLOCK_PIN und LATCH_PIN angesteuert werden.
 // Baustein 2: Balkenanzeige (2. Register)
 const byte barPatterns[10] = {
   0b11111111, // 0 LEDs aktiv        
